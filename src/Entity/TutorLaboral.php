@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\TutorLaboralRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TutorLaboralRepository::class)]
+#[UniqueEntity(fields: ['dni'], message: 'Ya existe una cuenta con este dni.')]
 class TutorLaboral
 {
     #[ORM\Id]
@@ -15,7 +17,7 @@ class TutorLaboral
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 9)]
+    #[ORM\Column(length: 9, unique: true)]
     private ?string $dni = null;
 
     #[ORM\Column(length: 255)]

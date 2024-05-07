@@ -27,21 +27,21 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
-                    {# {% if is_granted('ROLE_ADMIN') %} #}
+                    {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="">Admin</a>
+                            <a class="nav-link" href="{{ path('admin') }}">Admin</a>
                         </li>
-                    {# {% endif %}
-                    {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') or is_granted('ROLE_GUIA') %} #}
+                    {% endif %}
+                    {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') or is_granted('ROLE_GUIA') %}
                         <li class="nav-item">
                             <a class="nav-link" href="">Mis Reservas</a>
                         </li>
-                    {# {% endif %}
-                    {% if is_granted('ROLE_GUIA') %} #}
+                    {% endif %}
+                    {% if is_granted('ROLE_PROFESOR') %}
                         <li class="nav-item">
                             <a class="nav-link" href="">Generar Informe</a>
                         </li>
-                    {# {% endif %} #}
+                    {% endif %}
 
                     </ul>
 
@@ -51,11 +51,11 @@
                                 <span class = "nombreUser">{{ app.user.nombre }} </span> 
                         </li>
                         <li class = "nav-item">
-                                <a href="" class = "nav-link">Cerrar Sesión</a>
+                                <a href="/logout" class = "nav-link">Cerrar Sesión</a>
                         </li>
                         <li class = "nav-item">
                             {% else %}
-                                <a href="" id = "ini" class = "nav-link">Iniciar Sesión</a>
+                                <a href="/login" id = "ini" class = "nav-link">Iniciar Sesión</a>
                         </li>
                         <li class = "nav-item">
                                 <a href="" id = "btnReg" class = "nav-link">Regístrate</a>
