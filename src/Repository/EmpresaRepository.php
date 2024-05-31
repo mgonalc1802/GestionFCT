@@ -21,6 +21,17 @@ class EmpresaRepository extends ServiceEntityRepository
         parent::__construct($registry, Empresa::class);
     }
 
+    /**
+    * @return Empresa[] Devuelve un array del objeto Empresa.
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Empresa[] Returns an array of Empresa objects
     //     */

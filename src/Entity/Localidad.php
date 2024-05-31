@@ -36,12 +36,12 @@ class Localidad
      * @var Collection<int, Empresa>
      */
     #[ORM\OneToMany(targetEntity: Empresa::class, mappedBy: 'localid')]
-    private Collection $empresas;
+    private Collection $Empresas;
 
     public function __construct()
     {
         $this->centroTrabajos = new ArrayCollection();
-        $this->empresas = new ArrayCollection();
+        $this->Empresas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,22 +93,22 @@ class Localidad
         return $this->centroTrabajos;
     }
 
-    public function addCentroTrabajo(CentroTrabajo $centroTrabajo): static
+    public function addCentroTrabajo(CentroTrabajo $CentroTrabajo): static
     {
-        if (!$this->centroTrabajos->contains($centroTrabajo)) {
-            $this->centroTrabajos->add($centroTrabajo);
-            $centroTrabajo->setLocalid($this);
+        if (!$this->centroTrabajos->contains($CentroTrabajo)) {
+            $this->centroTrabajos->add($CentroTrabajo);
+            $CentroTrabajo->setLocalid($this);
         }
 
         return $this;
     }
 
-    public function removeCentroTrabajo(CentroTrabajo $centroTrabajo): static
+    public function removeCentroTrabajo(CentroTrabajo $CentroTrabajo): static
     {
-        if ($this->centroTrabajos->removeElement($centroTrabajo)) {
+        if ($this->centroTrabajos->removeElement($CentroTrabajo)) {
             // set the owning side to null (unless already changed)
-            if ($centroTrabajo->getLocalid() === $this) {
-                $centroTrabajo->setLocalid(null);
+            if ($CentroTrabajo->getLocalid() === $this) {
+                $CentroTrabajo->setLocalid(null);
             }
         }
 
@@ -120,28 +120,43 @@ class Localidad
      */
     public function getEmpresas(): Collection
     {
-        return $this->empresas;
+        return $this->Empresas;
     }
 
-    public function addEmpresa(Empresa $empresa): static
+    public function addEmpresa(Empresa $Empresa): static
     {
-        if (!$this->empresas->contains($empresa)) {
-            $this->empresas->add($empresa);
-            $empresa->setLocalid($this);
+        if (!$this->Empresas->contains($Empresa)) {
+            $this->Empresas->add($Empresa);
+            $Empresa->setLocalid($this);
         }
 
         return $this;
     }
 
-    public function removeEmpresa(Empresa $empresa): static
+    public function removeEmpresa(Empresa $Empresa): static
     {
-        if ($this->empresas->removeElement($empresa)) {
+        if ($this->Empresas->removeElement($Empresa)) {
             // set the owning side to null (unless already changed)
-            if ($empresa->getLocalid() === $this) {
-                $empresa->setLocalid(null);
+            if ($Empresa->getLocalid() === $this) {
+                $Empresa->setLocalid(null);
             }
         }
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre(),
+            'codigoPostal' => $this->getCodigoPostal(),
+            'provincia' => $this->getProvi()->getNombre()
+        ];
+    }
+
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

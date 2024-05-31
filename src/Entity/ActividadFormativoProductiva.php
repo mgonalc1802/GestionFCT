@@ -27,7 +27,7 @@ class ActividadFormativoProductiva
     /**
      * @var Collection<int, criterioEvaluacion>
      */
-    #[ORM\ManyToMany(targetEntity: criterioEvaluacion::class, inversedBy: 'actividadesForm')]
+    #[ORM\ManyToMany(targetEntity: CriterioEvaluacion::class, inversedBy: 'actividadesForm')]
     private Collection $citerios;
 
     public function __construct()

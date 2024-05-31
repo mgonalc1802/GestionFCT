@@ -122,4 +122,20 @@ class TutorLaboral
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return 'DNI: ' .  $this->dni . ' Nombre: ' .  $this->nombre;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'dni' => $this->getDni(),
+            'nombre' => $this->getNombre(),
+            'apellido1' => $this->getApellido1(),
+            'apellido2' => $this->getApellido2()
+        ];
+    }
 }

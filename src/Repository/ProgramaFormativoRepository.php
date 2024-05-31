@@ -21,6 +21,17 @@ class ProgramaFormativoRepository extends ServiceEntityRepository
         parent::__construct($registry, ProgramaFormativo::class);
     }
 
+    /**
+    * @return ProgramaFormativo[] Devuelve un array de objetos tipo ProgramaFormativo
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return ProgramaFormativo[] Returns an array of ProgramaFormativo objects
     //     */

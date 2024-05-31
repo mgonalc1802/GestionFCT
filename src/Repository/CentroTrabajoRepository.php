@@ -21,28 +21,24 @@ class CentroTrabajoRepository extends ServiceEntityRepository
         parent::__construct($registry, CentroTrabajo::class);
     }
 
-    //    /**
-    //     * @return CentroTrabajo[] Returns an array of CentroTrabajo objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+    * @return CentroTrabajo[] Devuelve un array de objetos tipo CentroTrabajo
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
-    //    public function findOneBySomeField($value): ?CentroTrabajo
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findByEmpresa($empresa): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.empresa = :val')
+            ->setParameter('val', $empresa)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

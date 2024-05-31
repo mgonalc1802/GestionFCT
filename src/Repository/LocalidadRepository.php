@@ -21,25 +21,51 @@ class LocalidadRepository extends ServiceEntityRepository
         parent::__construct($registry, Localidad::class);
     }
 
-    //    /**
-    //     * @return Localidad[] Returns an array of Localidad objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('l.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return Localidad[] Devuelve un array del objeto Localidad.
+        */
+       public function findAll(): array
+       {
+           return $this->createQueryBuilder('l')
+               ->orderBy('l.id', 'ASC')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
-    //    public function findOneBySomeField($value): ?Localidad
+       /**
+        * @return Localidad[] Devuelve un array de objetos del objeto Localidad filtrados por provincia
+        */
+       public function findByProvincia($provincia): ?array
+       {
+           return $this->createQueryBuilder('l')
+                ->join('l.provi', 'p') // Unir la tabla Provincia con el alias 'p'
+                ->andWhere('p.nombre LIKE :provi') // Filtrar por nombre de provincia
+                ->setParameter('provi', $provincia)
+                ->getQuery()
+                ->getResult()
+                ;
+           ;
+       }
+
+       /**
+        * @return Localidad Devuelve un objeto del tipo Localidad filtrados por un nombre.
+        */
+        public function findByNombre($nombre): ?Localidad
+        {
+            return $this->createQueryBuilder('l')
+                 ->andWhere('l.nombre LIKE :val') // Buscar una localidad concreta
+                 ->setParameter('val', $nombre)
+                 ->getQuery()
+                 ->getOneOrNullResult()
+                 ;
+            ;
+        }
+
+        // public function findOneBySomeField($value): ?Periodo
     //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

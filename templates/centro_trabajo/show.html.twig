@@ -1,0 +1,55 @@
+{% include '@EasyAdmin/page/content.html.twig' %}
+
+<div id = "verCentro">
+    <!-- Cargar archivos JS de JQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "js/centro/verCentro.js"></script> 
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <!-- Cargar los CSS de JQuery UI -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <table class = "table datagrid ">
+        <thead>
+            <tr>
+                <th data-column = "titulo" class = "  header-for-field-email text-" dir = "ltr">
+                    <a href="#">
+                        Email 
+                    </a>
+                </th>
+                <th data-column="fechaInicio" class="  header-for-field-text text-" dir="ltr">
+                    <a href="#">
+                        Teléfono 
+                    </a>
+                </th>
+                <th data-column="fechaFin" class="  header-for-field-text text-" dir="ltr">
+                    <a href="#">
+                        Dirección
+                    </a>
+                </th>
+
+                <th data-column="aforo" class="  header-for-field-text text-" dir="ltr">
+                    <a href="#">
+                        Fax
+                    </a>
+                </th>
+
+                <th data-column="url_foto" class=" field-virtual header-for-field-image text-center" dir="ltr">
+                    <span>Localidad</span>
+                </th>
+
+                <th class="actions-as-dropdown-table-head" dir="ltr">
+                    <span class="sr-only">Actions</span>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+
+        <tfoot>
+        </tfoot>
+    </table>
+
+</div>

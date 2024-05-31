@@ -40,17 +40,18 @@ class Empresa
     private ?string $tutorDocente = null;
 
     /**
-     * @var Collection<int, centroTrabajo>
+     * @var Collection<int, CentroTrabajo>
      */
-    #[ORM\ManyToMany(targetEntity: centroTrabajo::class, inversedBy: 'empresas')]
+    #[ORM\ManyToMany(targetEntity: CentroTrabajo::class, inversedBy: 'Empresas')]
     private Collection $centros;
 
-    #[ORM\ManyToOne(inversedBy: 'empresas')]
-    private ?localidad $localid = null;
+    #[ORM\ManyToOne(inversedBy: 'Empresas')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Localidad $localid = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?tutorLaboral $tutorLab = null;
+    private ?TutorLaboral $tutorLab = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -59,6 +60,10 @@ class Empresa
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?PersonaContacto $personaCont = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Empresa')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?FamiliaProfesional $familiaProfesional = null;
 
     public function __construct()
     {
@@ -167,47 +172,48 @@ class Empresa
     }
 
     /**
-     * @return Collection<int, centroTrabajo>
+     * @return Collection<int, CentroTrabajo>
      */
     public function getCentros(): Collection
     {
         return $this->centros;
     }
 
-    public function addCentro(centroTrabajo $centro): static
+    public function addCentro(CentroTrabajo $centro): static
     {
-        if (!$this->centros->contains($centro)) {
+        if (!$this->centros->contains($centro)) 
+        {
             $this->centros->add($centro);
         }
 
         return $this;
     }
 
-    public function removeCentro(centroTrabajo $centro): static
+    public function removeCentro(CentroTrabajo $centro): static
     {
         $this->centros->removeElement($centro);
 
         return $this;
     }
 
-    public function getLocalid(): ?localidad
+    public function getLocalid(): ?Localidad
     {
         return $this->localid;
     }
 
-    public function setLocalid(?localidad $localid): static
+    public function setLocalid(?Localidad $localid): static
     {
         $this->localid = $localid;
 
         return $this;
     }
 
-    public function getTutorLab(): ?tutorLaboral
+    public function getTutorLab(): ?TutorLaboral
     {
         return $this->tutorLab;
     }
 
-    public function setTutorLab(tutorLaboral $tutorLab): static
+    public function setTutorLab(TutorLaboral $tutorLab): static
     {
         $this->tutorLab = $tutorLab;
 
@@ -236,5 +242,47 @@ class Empresa
         $this->personaCont = $personaCont;
 
         return $this;
+    }
+
+    public function getFamiliaProfesional(): ?FamiliaProfesional
+    {
+        return $this->familiaProfesional;
+    }
+
+    public function setFamiliaProfesional(?FamiliaProfesional $familiaProfesional): static
+    {
+        $this->familiaProfesional = $familiaProfesional;
+
+        return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nif' => $this->getNif(),
+            'nombre' => $this->getNombre(),
+            'domicilioSocial' => $this->getDomicilioSocial(),
+            'telefono' => $this->getTelefono(),
+            'email' => $this->getEmail(),
+            'actividad' => $this->getActividad(),
+            'tutorDocente' => $this->getTutorDocente(),
+            'tutorLaboral' => $this->getTutorLab()->jsonSerialize(),
+            'centros' => $this->serializeCollection($this->getCentros()),
+            'representante' => $this->getRepres()->jsonSerialize(),
+            'personaContacto' => $this->getPersonaCont()->jsonSerialize(),
+            'familiaProfesional' => $this->getFamiliaProfesional()
+        ];
+    }
+
+
+    /**
+     * Serializa una colección a un array.
+     */
+    public function serializeCollection($collection)
+    {
+        return array_map(function ($item) {
+            return $item->jsonSerialize();
+        }, $collection->toArray());
     }
 }

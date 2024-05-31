@@ -37,6 +37,9 @@ class Convenio
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'profesor')]
     private Collection $users;
 
+    #[ORM\Column(length: 255)]
+    private ?string $pdf = null;
+
     public function __construct()
     {
         $this->alumnos = new ArrayCollection();
@@ -137,6 +140,18 @@ class Convenio
         if ($this->users->removeElement($user)) {
             $user->removeProfesor($this);
         }
+
+        return $this;
+    }
+
+    public function getPdf(): ?string
+    {
+        return $this->pdf;
+    }
+
+    public function setPdf(string $pdf): static
+    {
+        $this->pdf = $pdf;
 
         return $this;
     }

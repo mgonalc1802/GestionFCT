@@ -20,12 +20,12 @@ final class Version20240412084038 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE empresa (id INT AUTO_INCREMENT NOT NULL, nif VARCHAR(9) NOT NULL, nombre VARCHAR(255) NOT NULL, domicilio_social VARCHAR(255) NOT NULL, telefono VARCHAR(9) NOT NULL, fax INT DEFAULT NULL, email VARCHAR(255) NOT NULL, actividad VARCHAR(255) NOT NULL, tutor_docente VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Empresa (id INT AUTO_INCREMENT NOT NULL, nif VARCHAR(9) NOT NULL, nombre VARCHAR(255) NOT NULL, domicilio_social VARCHAR(255) NOT NULL, telefono VARCHAR(9) NOT NULL, fax INT DEFAULT NULL, email VARCHAR(255) NOT NULL, actividad VARCHAR(255) NOT NULL, tutor_docente VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE empresa');
+        $this->addSql('DROP TABLE Empresa');
     }
 }

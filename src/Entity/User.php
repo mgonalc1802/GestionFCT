@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Convenio::class, inversedBy: 'users')]
     private Collection $profesor;
 
+    #[ORM\ManyToOne(inversedBy: 'alumnos')]
+    private ?CicloFormativo $cicloFormativo = null;
+
     public function __construct()
     {
         $this->periodos = new ArrayCollection();
@@ -248,6 +251,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeProfesor(Convenio $profesor): static
     {
         $this->profesor->removeElement($profesor);
+
+        return $this;
+    }
+
+    public function getCicloFormativo(): ?CicloFormativo
+    {
+        return $this->cicloFormativo;
+    }
+
+    public function setCicloFormativo(?CicloFormativo $cicloFormativo): static
+    {
+        $this->cicloFormativo = $cicloFormativo;
 
         return $this;
     }

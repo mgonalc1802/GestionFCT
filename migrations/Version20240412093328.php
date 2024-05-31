@@ -21,7 +21,7 @@ final class Version20240412093328 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE centro_trabajo ADD localid_id INT NOT NULL');
-        $this->addSql('ALTER TABLE centro_trabajo ADD CONSTRAINT FK_2099B9D11E7E849F FOREIGN KEY (localid_id) REFERENCES localidad (id)');
+        $this->addSql('ALTER TABLE centro_trabajo ADD CONSTRAINT FK_2099B9D11E7E849F FOREIGN KEY (localid_id) REFERENCES Localidad (id)');
         $this->addSql('CREATE INDEX IDX_2099B9D11E7E849F ON centro_trabajo (localid_id)');
     }
 

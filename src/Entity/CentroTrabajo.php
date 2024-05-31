@@ -35,7 +35,7 @@ class CentroTrabajo
      * @var Collection<int, Empresa>
      */
     #[ORM\ManyToMany(targetEntity: Empresa::class, mappedBy: 'centros')]
-    private Collection $empresas;
+    private Collection $Empresas;
 
     /**
      * @var Collection<int, Convenio>
@@ -45,7 +45,7 @@ class CentroTrabajo
 
     public function __construct()
     {
-        $this->empresas = new ArrayCollection();
+        $this->Empresas = new ArrayCollection();
         $this->convenios = new ArrayCollection();
     }
 
@@ -119,23 +119,23 @@ class CentroTrabajo
      */
     public function getEmpresas(): Collection
     {
-        return $this->empresas;
+        return $this->Empresas;
     }
 
-    public function addEmpresa(Empresa $empresa): static
+    public function addEmpresa(Empresa $Empresa): static
     {
-        if (!$this->empresas->contains($empresa)) {
-            $this->empresas->add($empresa);
-            $empresa->addCentro($this);
+        if (!$this->Empresas->contains($Empresa)) {
+            $this->Empresas->add($Empresa);
+            $Empresa->addCentro($this);
         }
 
         return $this;
     }
 
-    public function removeEmpresa(Empresa $empresa): static
+    public function removeEmpresa(Empresa $Empresa): static
     {
-        if ($this->empresas->removeElement($empresa)) {
-            $empresa->removeCentro($this);
+        if ($this->Empresas->removeElement($Empresa)) {
+            $Empresa->removeCentro($this);
         }
 
         return $this;
@@ -169,5 +169,22 @@ class CentroTrabajo
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->direccion . ' ->' . $this->getLocalid()->getNombre();
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'email' => $this->getEmail(),
+            'direccion' => $this->getDireccion(),
+            'telefono' => $this->getTelefono(),
+            'fax' => $this->getFax(),
+            'localidad' => $this->getLocalid()->getNombre()
+        ];
     }
 }

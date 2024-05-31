@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
-use EasyCorp\Bundle\EasyAdminBundle\Field\{IdField, EmailField, TextField, ArrayField};
+use EasyCorp\Bundle\EasyAdminBundle\Field\{IdField, EmailField, TextField, ArrayField, AssociationField};
 use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
 use Symfony\Component\Form\{FormBuilderInterface, FormEvent, FormEvents};
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -63,8 +63,10 @@ class UserCrudController extends AbstractCrudController
                         'second_options' => ['label' => 'Repetir Contraseña'],
                         'mapped' => false,
                     ]
-                ),
-            ArrayField::new("roles")
+                ),ArrayField::new("roles"),
+            AssociationField::new('cicloFormativo')
+                ->setLabel('Ciclo Formativo')
+            
         ];
     }
 

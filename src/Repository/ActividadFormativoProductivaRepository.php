@@ -21,6 +21,17 @@ class ActividadFormativoProductivaRepository extends ServiceEntityRepository
         parent::__construct($registry, ActividadFormativoProductiva::class);
     }
 
+    /**
+    * @return ActividadFormativoProductivaRepository[] Devuelve un array de objetos tipo ActividadFormativoProductiva
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return ActividadFormativoProductiva[] Returns an array of ActividadFormativoProductiva objects
     //     */

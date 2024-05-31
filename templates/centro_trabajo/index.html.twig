@@ -1,0 +1,70 @@
+{% include '@EasyAdmin/page/content.html.twig' %}
+
+<div id = "centroTrabajo">
+    <!-- Cargar archivos JS de JQuery UI -->
+    <script src = "https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "js/centro/crearCentro.js"></script>
+    {# // <script type = "text/javascript" src="js/jquery.richtext.js"></script> #}
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    
+    <!-- Cargar los CSS de JQuery UI -->
+    <link rel = "stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    {# <link rel = "stylesheet" href = "CSS/jquery/jquery-ui.structure.css" type = "text/css">
+    <link rel = "stylesheet" href = "CSS/jquery/jquery-ui.theme.css" type = "text/css"> 
+    <link rel = "stylesheet" href = "css/jquery/richtext.min.css"> #}
+    <link rel = "stylesheet" href = "{{ asset('css/estilo/crearCentro.css') }}" type = "text/css">
+
+    <form action = "/admin?routeName = centros" method = "post">
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "email" class = "form-control-label required">Email:</label>
+                    <input type = "email" class = "form-control" name = "email" id = "email" pattern = ".+@example\.com" size = "255" required>
+                    <label class = "errores" id = "errEmail">Introduce un email válido.</label>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "telefono" class = "form-control-label required">Teléfono:</label>
+                    <input type = "tel" class = "form-control" name = "telefono" id = "telefono" pattern = "\d{9}" placeholder = "953123456" required>
+                    <label class = "errores" id = "errTel">Introduce un teléfono válido.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "direccion" class = "form-control-label required">Dirección:</label>
+                    <input type = "text" class = "form-control" id = "direccion" name = "direccion" maxlength = "255" required>
+                    <label class = "errores" id = "errDir">Introduce una dirección.</label>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "fax">Fax:</label>
+                    <input type = "number" class = "form-control" name = "fax" id = "fax">
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "provincias" class = "form-control-label required">Provincias:</label>
+                    <select id = "provincias" class = "form-control"></select>
+                    <label class = "errores" id = "errLoc">Elija una localidad.</label>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "localidades" class = "form-control-label required">Localidades:</label>
+                    <select id = "localidades" class = "form-control" disabled></select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

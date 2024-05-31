@@ -21,6 +21,18 @@ class TutorLaboralRepository extends ServiceEntityRepository
         parent::__construct($registry, TutorLaboral::class);
     }
 
+    /**
+    * @return TutorLaboral[] Devuelve un array del objeto TutorLaboral.
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return TutorLaboral[] Returns an array of TutorLaboral objects
     //     */

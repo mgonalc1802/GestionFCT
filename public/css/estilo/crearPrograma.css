@@ -1,0 +1,36 @@
+#parte2 { 
+    display: none; 
+}
+
+.intro {
+    height: 110%;
+}
+
+.card {
+    border-radius: .5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Estilos para el diseño de dos columnas */
+.col-md-6 {
+    width: 50%;
+    float: left;
+}
+
+/* Limpiar el float para evitar que elementos posteriores se vean afectados */
+.clear {
+    clear: both;
+}

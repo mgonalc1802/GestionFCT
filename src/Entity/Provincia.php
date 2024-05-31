@@ -75,4 +75,17 @@ class Provincia
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->nombre;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre()
+        ];
+    }
 }

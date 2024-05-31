@@ -77,4 +77,20 @@ class PersonaContacto
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->nombre . ' ' . $this->apellido1 . ' ' . $this->apellido2;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre(),
+            'apellido1' => $this->getApellido1(),
+            'apellido2' => $this->getApellido2(),
+            'telefono' => $this->getTelefono()
+        ];
+    }
 }
