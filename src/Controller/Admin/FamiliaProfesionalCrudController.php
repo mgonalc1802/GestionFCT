@@ -18,7 +18,9 @@ class FamiliaProfesionalCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('nombre')
+            TextField::new('nombre'),
+            TextField::new('jefe')
+                ->setRequired(true)
         ];
     }
 }

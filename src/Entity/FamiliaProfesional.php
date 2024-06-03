@@ -24,6 +24,9 @@ class FamiliaProfesional
     #[ORM\OneToMany(targetEntity: Empresa::class, mappedBy: 'familiaProfesional')]
     private Collection $Empresa;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $jefe = null;
+
     public function __construct()
     {
         $this->Empresa = new ArrayCollection();
@@ -87,5 +90,17 @@ class FamiliaProfesional
             'id' => $this->getId(),
             'nombre' => $this->getNombre()
         ];
+    }
+
+    public function getJefe(): ?string
+    {
+        return $this->jefe;
+    }
+
+    public function setJefe(?string $jefe): static
+    {
+        $this->jefe = $jefe;
+
+        return $this;
     }
 }

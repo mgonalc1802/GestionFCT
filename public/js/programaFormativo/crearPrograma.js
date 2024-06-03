@@ -17,6 +17,30 @@ $(function(){
         traeCentrosEmpresa($(this).val());
     });
 
+    //Generar la acción del boton Generar
+    document.getElementById('generar').addEventListener('click', function(ev){
+        //Previene el submit que realiza por defecto
+        ev.preventDefault();
+
+        //Genera un array para introducir las actividades seleccionadas
+        const actividades = [];
+
+        //Obtiene las actividades seleccionadas
+        document.querySelectorAll('input[name="actividades[]"]:checked').forEach((checkbox) => 
+        {
+            actividades.push(checkbox.value);
+        });
+
+        //Genera un array para introducir los criterios seleccionados
+        const criterios = [];
+
+        //Obtiene los criterios seleccionados
+        document.querySelectorAll('input[name="criterios[]"]:checked').forEach((checkbox) => {
+            criterios.push(checkbox.value);
+        });
+
+        
+    });
 });
 
 //Función que trae los centros de una determinada empresa

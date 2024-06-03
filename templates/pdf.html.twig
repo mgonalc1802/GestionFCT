@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestión de Programa Formativo{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        header .left, header .right {
+            display: flex;
+            align-items: center;
+        }
+        header .right {
+            justify-content: flex-end;
+            text-align: right;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .table th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #dee2e6;
+        }
+        .signature-section {
+            margin-top: 40px;
+        }
+        .signature-section .col-md-4 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+        .signature-left {
+            align-items: flex-start;
+            text-align: left;
+        }
+        .signature-right {
+            align-items: flex-end;
+            text-align: right;
+        }
+        .signature u {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <div class="row">
+            <div class="col-md-6 left">
+                <p>FORMACIÓN EN CENTROS DE TRABAJO. PROGRAMA FORMATIVO.</p>
+            </div>
+            <div class="col-md-6 right">
+                <p>CONSEJERÍA DE EDUCACIÓN</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>CENTRO DOCENTE: <b>I.E.S LAS FUENTEZUELAS</b></p>
+                            <p>PROFESOR/PROFESORA RESPONSABLE DEL SEGUIMIENTO: <b>PEDRO PEDRO PEDRO</b></p>
+                            <p>ALUMNO/ALUMNA: {{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</p>
+                        </td>
+                        <td colspan="2">
+                            <p>CENTRO DE TRABAJO COLABORADOR: {{ empresa.nombre }} {{ centroTrabajo.localid }}</p>
+                            <p>TUTOR/TUTORA DEL CENTRO DE TRABAJO: {{ tutorLaboral.nombre }} {{ tutorLaboral.apellido1 }} {{ tutorLaboral.apellido2 }}</p>
+                            <p>PERÍODO DE REALIZACIÓN DE LA FCT: <b>DEL {{ fechaInicio }} AL {{ fechaFin }}</b></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p>CURSO ESCOLAR: <b>22/23</b></p>
+                            <p>FAMILIA PROFESIONAL: {{ empresa.familiaProfesional }} || CICLO FORMATIVO: <b>{{ alumno.cicloFormativo }}</b> || GRADO: <b>SUPERIOR</b></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>RESULTADOS DE APRENDIZAJE</th>
+                        <th>ACTIVIDADES FORMATIVOPRODUCTIVAS</th>
+                        <th>CRITERIO DE EVALUACIÓN</th>
+                    </tr>
+                    {% for resultado in resultadosAprendizaje %}
+                    <tr>
+                        <td>{{ resultado.id }}.- {{ resultado.resultadosAprendizaje }}</td>
+                        <td>
+                            <ul>
+                                {% for actividad in resultado.activFormativProduc %}
+                                    <li>{{ actividad.descripcion }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for actividad in resultado.activFormativProduc %}
+                                    {% for criterio in actividad.citerios %}
+                                        <li>{{ criterio.descripcion }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container signature-section">
+            <div class="row">
+                <div class="col-md-4 signature-left">
+                    <p>EL/LA PROFESOR/A RESPONSABLE DEL SEGUIMIENTO</p>
+                </div>
+                <div class="col-md-4 signature-center">
+                    <p>En JAÉN a <u>{{ dia }}</u> de <u>{{ mes }}</u> de <u>{{ anio }}</u></p>
+                    <p>Fdo: <u>PEDRO PEDRO PEDRO</u></p>
+                </div>
+                <div class="col-md-4 signature-right">
+                    <p>EL/LA JEFE/A DEL DEPARTAMENTO DE FAMILIA PROFESIONAL</p>
+                    <p>Fdo: <u>{{empresa.familiaProfesional.jefe}}</u></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container signature text-center">
+            <p>EL/LA TUTOR/A DEL CENTRO DE TRABAJO</p>
+            <p>Fdo: <u>{{ tutorLaboral.nombre }} {{ tutorLaboral.apellido1 }} {{ tutorLaboral.apellido2 }}</u></p>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

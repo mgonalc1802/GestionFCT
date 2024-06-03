@@ -3,81 +3,81 @@
 {% block title %}Programa Formativo{% endblock %}
 
 {% block body %}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="js/programaFormativo/crearPrograma.js"></script>
+    <script src = "https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "js/programaFormativo/crearPrograma.js"></script>
     <link rel = "stylesheet" href = "/css/estilo/crearPrograma.css" type = "text/css">
 
-<div class="container formularioPrograma">
-    <h1 class="text-center">Programa Formativo</h1>
-    <div id="parte1">
-        <div class="row">
-            <div class="col-md-2">
+<div class = "formularioPrograma">
+    <h1 class = "text-center">Programa Formativo</h1>
+    <div id = "parte1">
+        <div class = "row">
+            <div class = "col-md-2">
             </div>
-            <div class="col-md-4">
-                <label for="alumnos">Selecciona un Alumno:</label>
-                <select id="alumnos" name="alumnos" class="form-control">
+            <div class = "col-md-4">
+                <label for = "alumnos">Selecciona un Alumno:</label>
+                <select id = "alumnos" name = "alumnos" class = "form-control">
                     {% for alumno in alumnos %}
-                        <option value="{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</option>
+                        <option value = "{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                <label for="tutoresLaborales">Selecciona un Tutor Laboral:</label>
-                <select id="tutoresLaborales" name="tutoresLaborales" class="form-control">
+            <div class = "col-md-4">
+                <label for = "tutoresLaborales">Selecciona un Tutor Laboral:</label>
+                <select id = "tutoresLaborales" name = "tutoresLaborales" class = "form-control">
                     {% for tutor in tutoresLaborales %}
-                        <option value="{{ tutor.id }}">{{ tutor.nombre }} {{ tutor.apellido1 }} {{ tutor.apellido2 }}</option>
+                        <option value = "{{ tutor.id }}">{{ tutor.nombre }} {{ tutor.apellido1 }} {{ tutor.apellido2 }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-2">
+        <div class = "row mt-3">
+            <div class = "col-md-2">
             </div>
-            <div class="col-md-4">
-                <label for="empresas">Selecciona una Empresa:</label>
-                <select id="empresas" name="empresas" class="form-control">
+            <div class = "col-md-4">
+                <label for = "empresas">Selecciona una Empresa:</label>
+                <select id = "empresas" name = "empresas" class = "form-control">
                     {% for empresa in empresas %}
-                        <option value="{{ empresa.id }}">{{ empresa.nombre }}</option>
+                        <option value = "{{ empresa.id }}">{{ empresa.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                <label for="centrosTrabajo">Selecciona un Centro de Trabajo:</label>
-                <select id="centrosTrabajo" name="centrosTrabajo" class="form-control" disabled>
+            <div class = "col-md-4">
+                <label for = "centrosTrabajo">Selecciona un Centro de Trabajo:</label>
+                <select id = "centrosTrabajo" name = "centrosTrabajo" class = "form-control" disabled>
                 </select>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-2">
+        <div class = "row mt-3">
+            <div class = "col-md-2">
             </div>
-            <div class="col-md-4">
-                <label for="fechaInicio">Fecha de Inicio:</label>
-                <input type="date" id="fechaInicio" name="fechaInicio" class="form-control">
+            <div class = "col-md-4">
+                <label for = "fechaInicio">Fecha de Inicio:</label>
+                <input type = "date" id = "fechaInicio" name = "fechaInicio" class = "form-control">
             </div>
-            <div class="col-md-4">
-                <label for="fechaFin">Fecha de Fin:</label>
-                <input type="date" id="fechaFin" name="fechaFin" class="form-control">
+            <div class = "col-md-4">
+                <label for = "fechaFin">Fecha de Fin:</label>
+                <input type = "date" id = "fechaFin" name = "fechaFin" class = "form-control">
             </div>
         </div>
-        <div class="text-center mt-4">
-            <button id="mostrarParte2" class="btn btn-primary">Siguiente</button>
+        <div class = "text-center mt-4">
+            <button id = "mostrarParte2" class = "btn btn-primary">Siguiente</button>
         </div>
     </div>
 
-    <div id="parte2">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h2 class="text-center">Actividades</h2>
-                <section class="intro">
-                    <div class="mask d-flex h-100">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
+    <div id = "parte2">
+        <div class = "row mt-4">
+            <div class = "col-md-12">
+                <h2 class = "text-center">Actividades</h2>
+                <section class = "intro">
+                    <div class = "mask d-flex h-100">
+                        <div class = "container">
+                            <div class = "row justify-content-center">
+                                <div class = "col-12">
+                                    <div class = "card">
+                                        <div class = "card-body">
+                                            <div class = "table-responsive">
+                                                <table class = "table table-bordered">
                                                     <thead>
                                                         <tr>
                                                             <th>Resultados Aprendizaje</th>
@@ -92,8 +92,8 @@
                                                             <td>
                                                                 <ul>
                                                                     {% for actividad in resultado.activFormativProduc %}
-                                                                        <input type="checkbox" id="actividad_{{ actividad.id }}" name="actividades[]" value="{{ actividad.id }}">
-                                                                        <label for="actividad_{{ actividad.id }}">{{ actividad.descripcion }}</label>
+                                                                        <input type = "checkbox" id = "actividad_{{ actividad.id }}" name = "actividades[]" value = "{{ actividad.id }}">
+                                                                        <label for = "actividad_{{ actividad.id }}">{{ actividad.descripcion }}</label>
                                                                     {% endfor %}
                                                                 </ul>
                                                             </td>
@@ -101,8 +101,8 @@
                                                                 <ul>
                                                                     {% for actividad in resultado.activFormativProduc %}
                                                                         {% for criterio in actividad.citerios %}
-                                                                            <input type="checkbox" id="criterio_{{ criterio.id }}" name="criterios[]" value="{{ criterio.id }}">
-                                                                            <label for="criterio_{{ criterio.id }}">{{ criterio.descripcion }}</label>
+                                                                            <input type = "checkbox" id = "criterio_{{ criterio.id }}" name = "criterios[]" value = "{{ criterio.id }}">
+                                                                            <label for = "criterio_{{ criterio.id }}">{{ criterio.descripcion }}</label>
                                                                         {% endfor %}
                                                                     {% endfor %}
                                                                 </ul>
@@ -121,11 +121,11 @@
                 </section>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <button id="volverParte1" class="btn btn-secondary">Anterior</button>
+        <div class = "text-center mt-4">
+            <button id = "volverParte1" class = "btn btn-secondary">Anterior</button>
         </div>
-        <div class="text-center mt-4">
-            <button id="generar" class="btn btn-primary">Generar</button>
+        <div class = "text-center mt-4">
+            <button id = "generar" class = "btn btn-primary">Generar</button>
         </div>
     </div>
 </div>

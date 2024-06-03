@@ -22,9 +22,9 @@ class CicloFormativo
     private ?string $siglas = null;
 
     /**
-     * @var Collection<int, user>
+     * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: user::class, mappedBy: 'cicloFormativo')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'cicloFormativo')]
     private Collection $alumnos;
 
     public function __construct()
@@ -62,14 +62,14 @@ class CicloFormativo
     }
 
     /**
-     * @return Collection<int, user>
+     * @return Collection<int, User>
      */
     public function getAlumnos(): Collection
     {
         return $this->alumnos;
     }
 
-    public function addAlumno(user $alumno): static
+    public function addAlumno(User $alumno): static
     {
         if (!$this->alumnos->contains($alumno)) {
             $this->alumnos->add($alumno);
@@ -79,7 +79,7 @@ class CicloFormativo
         return $this;
     }
 
-    public function removeAlumno(user $alumno): static
+    public function removeAlumno(User $alumno): static
     {
         if ($this->alumnos->removeElement($alumno)) {
             // set the owning side to null (unless already changed)
@@ -89,5 +89,10 @@ class CicloFormativo
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }
