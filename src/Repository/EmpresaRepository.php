@@ -32,6 +32,19 @@ class EmpresaRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+    * @return Empresa Devuelve un objeto Empresa.
+     */
+    public function findById($id): Empresa
+    {
+        return $this->createQueryBuilder('r')
+                    ->andWhere('r.id = :val')
+                    ->setParameter('val', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return Empresa[] Returns an array of Empresa objects
     //     */

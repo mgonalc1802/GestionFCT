@@ -41,4 +41,18 @@ class CentroTrabajoRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+    * @return CentroTrabajo Devuelve un objeto CentroTrabajo.
+     */
+    public function findById($id): CentroTrabajo
+    {
+        return $this->createQueryBuilder('r')
+                    ->andWhere('r.id = :val')
+                    ->setParameter('val', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+        ;
+    }
+    
 }

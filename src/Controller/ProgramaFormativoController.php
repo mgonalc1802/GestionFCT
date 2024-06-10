@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\{UserRepository, TutorLaboralRepository, CentroTrabajoRepository, ActividadFormativoProductivaRepository, ProgramaFormativoRepository, EmpresaRepository};
-use Symfony\Component\HttpFoundation\{Response};
+use Symfony\Component\HttpFoundation\{Response, Request};
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Knp\Snappy\Pdf;
@@ -43,29 +43,42 @@ class ProgramaFormativoController extends AbstractController
     }
 
     #[Route('/API/generarPdf', name: 'generarPDF', methods: ['POST'] )]
-    public function generarPdf(UserRepository $userRepository, TutorLaboralRepository $tutorLaboralRepository, CentroTrabajoRepository $centroTrabajoRepository,
-    ProgramaFormativoRepository $programaFormativoRepository, ActividadFormativoProductivaRepository $actividadesRepository, EmpresaRepository $empresaRepository, Pdf $knpSnappyPdf): Response
+    public function generarPdf(Request $request, UserRepository $userRepository, TutorLaboralRepository $tutorLaboralRepository, CentroTrabajoRepository $centroTrabajoRepository,
+    ProgramaFormativoRepository $programaFormativoRepository, ActividadFormativoProductivaRepository $actividadesRepository, EmpresaRepository $empresaRepository, 
+    Pdf $knpSnappyPdf): Response
     {
+        //Obtiene el json enviado
+        $data = json_decode($request->getContent(), true);
+
+        // Verifica si los campos necesarios están presentes en el JSON
+        if (!isset($data['idAlumno'], $data['idTutorLaboral'], $data['idEmpresa'], $data['idCentroTrabajo'], $data['fechaInicio'], $data['fechaFin'])) {
+            // Manejar el caso en que falta algún campo
+            return new Response('Faltan campos en los datos JSON', 400);
+        }
+
+        //Distingue cada atributo del json
+        $idAlumno = $data['idAlumno'];
+        $idTutorLaboral = $data['idTutorLaboral'];
+        $idEmpresa = $data['idEmpresa'];
+        $idCentroTrabajo = $data['idCentroTrabajo'];
+        $fechaInicio = $data['fechaInicio'];
+        $fechaFin = $data['fechaFin'];
+        $profesorResponable = $this->getUser();
+        
         //Busca todos los alumnos
-        $alumnos = $userRepository->findAlumnos();
+        $alumno = $userRepository->findById($idAlumno);
 
         //Busca todos los tutores laborales
-        $tutoresLaborales = $tutorLaboralRepository->findAll();
+        $tutorLaboral = $tutorLaboralRepository->findById($idTutorLaboral);
 
         //Busca todas las empresas
-        $centrosTrabajo = $centroTrabajoRepository->findAll();  
+        $centroTrabajo = $centroTrabajoRepository->findById($idCentroTrabajo);  
 
         //Obtiene todas las Empresas
-        $empresas = $empresaRepository->findAll();
+        $empresa = $empresaRepository->findById($idEmpresa);
 
         //Busca todos los resultadosAprendizaje
         $resultadosAprendizaje = $programaFormativoRepository->findAll();
-
-        //Obtiene la fecha inicio
-        $fechaInicio = "22 de Marzo";
-
-        //Obtiene la fecha de fin
-        $fechaFin = "17 de Julio";
 
         //Obtiene la hora local para poder indicar el mes en español
         setlocale(LC_TIME, 'es_ES.UTF-8');
@@ -79,42 +92,44 @@ class ProgramaFormativoController extends AbstractController
         $anio = $fechaActual->format('Y');
 
         $html = $this->renderView('pdf.html.twig', [
-            'alumno' => $alumnos[0],
-            'tutorLaboral' => $tutoresLaborales[0],
-            'centroTrabajo' => $centrosTrabajo[0],
-            'empresa' => $empresas[0],
+            'alumno' => $alumno,
+            'tutorLaboral' => $tutorLaboral,
+            'empresa' => $empresa,
+            'centroTrabajo' => $centroTrabajo,
             'resultadosAprendizaje' => $resultadosAprendizaje,
             'fechaInicio' => $fechaInicio,
             'fechaFin' => $fechaFin,
+            'profesorResponsable' => $profesorResponable,
             'dia' => $dia,
             'mes' => $mes,
             'anio' => $anio,
         ]);
 
-
-        // return $this->render('pdf.html.twig', [
-        //     'alumno' => $alumnos[0],
-        //     'tutorLaboral' => $tutoresLaborales[0],
-        //     'centroTrabajo' => $centrosTrabajo[0],
-        //     'empresa' => $empresas[0],
-        //     'resultadosAprendizaje' => $resultadosAprendizaje,
-        //     'fechaInicio' => $fechaInicio,
-        //     'fechaFin' => $fechaFin,
-        //     'dia' => $dia,
-        //     'mes' => $mes,
-        //     'anio' => $anio,
-        // ]);
-
         //Indica el nombre del archivo
-        $nombreArchivo = $alumnos[0]->getNombre() . ' ' . $alumnos[0]->getApellido1() . ' ' . $alumnos[0]->getApellido2() . '.pdf';
+        $nombreArchivo = $alumno->getNombre() . ' ' . $alumno->getApellido1() . ' ' . $alumno->getApellido2() . '.pdf';
 
-        // Ruta donde se guardará el archivo PDF
-        $outputPath = $this->getParameter('kernel.project_dir') . '/public/pdf/' . $nombreArchivo;
+         // Ruta donde se guardará el archivo PDF por defecto (carpeta Descargas del usuario)
+        $outputPathDefault = 'C:/Users/maria/Downloads/' . $nombreArchivo;
 
-        // Generar el PDF y guardarlo en la ruta especificada
-        $knpSnappyPdf->generateFromHtml($html, $outputPath);
+        // Generar el PDF y guardarlo en la ruta por defecto
+        $knpSnappyPdf->generateFromHtml($html, $outputPathDefault);
+
+        // Indica la ruta de la carpeta pública donde se almacenarán los archivos descargados
+        $outputPathPublic = $this->getParameter('kernel.project_dir') . '/public/pdf/';
+
+        // Ruta donde se guardará el archivo PDF en la carpeta pública
+        $outputPathPublic .= $nombreArchivo;
+
+        //Eliminar el archivo existente en la carpeta pública si existe
+        if (file_exists($outputPathPublic)) {
+            unlink($outputPathPublic);
+            unlink($outputPathDefault);
+        }
+
+        // Copiar el archivo PDF a la carpeta pública
+        copy($outputPathDefault, $outputPathPublic);
 
         // Crear una respuesta de descarga
-        return $this->file($outputPath, $nombreArchivo, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+        return $this->file($outputPathDefault, $nombreArchivo, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
     }
 }

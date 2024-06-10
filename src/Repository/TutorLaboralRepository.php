@@ -33,6 +33,19 @@ class TutorLaboralRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+    * @return TutorLaboral Devuelve un objeto TutorLaboral.
+     */
+    public function findById($id): TutorLaboral
+    {
+        return $this->createQueryBuilder('r')
+                    ->andWhere('r.id = :val')
+                    ->setParameter('val', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return TutorLaboral[] Returns an array of TutorLaboral objects
     //     */

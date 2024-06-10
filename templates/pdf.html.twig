@@ -82,7 +82,7 @@
                     <tr>
                         <td>
                             <p>CENTRO DOCENTE: <b>I.E.S LAS FUENTEZUELAS</b></p>
-                            <p>PROFESOR/PROFESORA RESPONSABLE DEL SEGUIMIENTO: <b>PEDRO PEDRO PEDRO</b></p>
+                            <p>PROFESOR/PROFESORA RESPONSABLE DEL SEGUIMIENTO: <b>{{ profesorResponsable.nombre }} {{ profesorResponsable.apellido1 }} {{ profesorResponsable.apellido2 }}</b></p>
                             <p>ALUMNO/ALUMNA: {{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</p>
                         </td>
                         <td colspan="2">
@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-md-4 signature-center">
                     <p>En JAÉN a <u>{{ dia }}</u> de <u>{{ mes }}</u> de <u>{{ anio }}</u></p>
-                    <p>Fdo: <u>PEDRO PEDRO PEDRO</u></p>
+                    <p>Fdo: <u>{{ profesorResponsable.nombre }} {{ profesorResponsable.apellido1 }} {{ profesorResponsable.apellido2 }}</u></p>
                 </div>
                 <div class="col-md-4 signature-right">
                     <p>EL/LA JEFE/A DEL DEPARTAMENTO DE FAMILIA PROFESIONAL</p>
