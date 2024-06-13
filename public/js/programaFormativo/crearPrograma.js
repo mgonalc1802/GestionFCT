@@ -8,6 +8,8 @@ $(function(){
         traeCentrosEmpresa($(this).val());
     });
 
+    traeCursosEscolares();
+
     //Generar la acción del boton Generar
     document.getElementById('generar').addEventListener('click', function(ev){
         //Previene el submit que realiza por defecto
@@ -31,7 +33,10 @@ $(function(){
         //Obtiene la fecha de inicio
         var fechaFin = $("#fechaFin").val();
 
-        if(validarFormulario(centroTrabajo, fechaInicio, fechaFin)){
+        //Obtiene el cursoEscolar
+        var cursoEscolar = document.getElementById("cursosEscolar").value;
+
+        if(validarFormulario(centroTrabajo, cursoEscolar, fechaInicio, fechaFin)){
             //Genera el json
             var json = 
             {
@@ -40,7 +45,8 @@ $(function(){
                 "idEmpresa": empresa,
                 "idCentroTrabajo": centroTrabajo,
                 "fechaInicio": fechaInicio,
-                "fechaFin": fechaFin
+                "fechaFin": fechaFin,
+                'idCurso': cursoEscolar
             };
 
             //Llama a la función para generar el PDF.
@@ -52,7 +58,7 @@ $(function(){
     });
 });
 
-function validarFormulario(centroTrabajo, fechaInicio, fechaFin){
+function validarFormulario(centroTrabajo, cursoEscolar, fechaInicio, fechaFin){
     //Crea un booleano al que asignamos true por defecto
     var validar = true;
 
@@ -62,6 +68,9 @@ function validarFormulario(centroTrabajo, fechaInicio, fechaFin){
     //Obtiene el input de centrosTrabajo
     var centroTrabajoInput = document.getElementById("centrosTrabajo");
 
+    //Obtiene el input de cursosEscolares
+    var centroTrabajoInput = document.getElementById("cursosEscolar");
+
     //Obtiene el input de fechaInicio
     var fechaInicioInput = document.getElementById("fechaInicio");
 
@@ -69,6 +78,14 @@ function validarFormulario(centroTrabajo, fechaInicio, fechaFin){
     var fechaFinInput = document.getElementById("fechaFin");
 
     if(centroTrabajo == ""){
+        //Cambia el borde a rojo
+        centroTrabajoInput.classList.add("borde-rojo");
+
+        //Cambia el booleano
+        validar = false;
+    }
+
+    if(cursoEscolar == ""){
         //Cambia el borde a rojo
         centroTrabajoInput.classList.add("borde-rojo");
 
@@ -149,6 +166,36 @@ function traeCentrosEmpresa(id){
         });
 };
 
+//Función que trae los centros de una determinada empresa
+function traeCursosEscolares(){
+    //Llamada AJAX que se encarga de traer los centros de una determinada empresa
+    $.ajax(
+        {
+            url: "/API/cursosEscolares",
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json', 
+            processData: false,
+            success: function (response) 
+            {
+                //Obtiene el contenido html necesario
+                var selectCursos = $("#cursosEscolar");
+
+                console.log(response)
+    
+                //Recorre el array que obtiene a través de la API
+                for(let i = 0; i < response.length; i++)
+                {
+                    //Crea un nuevo elemento del select
+                    var option = $('<option value = "' + response[i].id + '">' + response[i].anioInicio + '/' + response[i].anioFin + '</option>');
+    
+                    //Añade al select la opción
+                    selectCursos.append(option);
+                }       
+            }
+        });
+};
+
 function generaPDF(json){
     //Llamada AJAX que se encarga de generar el PDF
     $.ajax(
@@ -161,11 +208,11 @@ function generaPDF(json){
             processData: false,
             success: function (response) 
             {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
                 alert("Programa formativo generado perfectamente.");
                 window.location.href = "/";
+            },
+            error: function (xhr, status, error) {
+                alert('Error: ' + xhr.responseText);
             }
         });
 }

@@ -90,4 +90,13 @@ class CursoEscolar
 
         return $this;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'anioInicio' => $this->getAnioInicio(),
+            'anioFin' => $this->getAnioFin()
+        ];
+    }
 }

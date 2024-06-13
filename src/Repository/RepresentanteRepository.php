@@ -21,6 +21,18 @@ class RepresentanteRepository extends ServiceEntityRepository
         parent::__construct($registry, Representante::class);
     }
 
+    /**
+    * @return Representante[] Devuelve un array del objeto Representante.
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Representante[] Returns an array of Representante objects
     //     */

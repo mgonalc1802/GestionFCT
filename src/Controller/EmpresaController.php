@@ -4,20 +4,40 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{JsonResponse, Response};
-use App\Repository\{EmpresaRepository};
+use App\Repository\{EmpresaRepository, UserRepository, RepresentanteRepository, TutorLaboralRepository, CursoEscolarRepository};
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\{Empresa};
 class EmpresaController extends AbstractController
 {
     #[Route('/datosEmpresa', name: 'datosEmpresa')]
-    public function datosEmpresa(EmpresaRepository $empresaRepository): Response
+    public function datosEmpresa(EmpresaRepository $empresaRepository, UserRepository $userRepository, RepresentanteRepository $representanteRepository,
+    TutorLaboralRepository $tutorLaboralRepository, CursoEscolarRepository $cursoEscolarRepository): Response
     {
         //Obtiene todas las Empresas
-        $centros = $empresaRepository->findAll();
+        $empresas = $empresaRepository->findAll();  
+        
+        //Obtiene todos los alumnos
+        $alumnos = $userRepository->findAlumnos();
 
+        //Obtiene todos los representantes
+        $representantes = $representanteRepository->findAll();
+
+        //Obtiene todos los tutores laborales
+        $tutoresLaborales = $tutorLaboralRepository->findAll();
+
+        //Obtiene todos los profesores
+        $profesores = $userRepository->findProfesores();
+
+        //Obtiene el curso escolar
+        $cursosEscolares = $cursoEscolarRepository->findAll();
 
         return $this->render('empresa/index.html.twig', [
-            'centros' => $centros
+            'empresas' => $empresas,
+            'alumnos' => $alumnos,
+            'representantes' => $representantes,
+            'tutoresLaborales' => $tutoresLaborales,
+            'profesores' => $profesores,
+            'cursosEscolares' => $cursosEscolares,
         ]);
     }
 

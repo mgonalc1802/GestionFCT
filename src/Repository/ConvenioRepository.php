@@ -21,20 +21,17 @@ class ConvenioRepository extends ServiceEntityRepository
         parent::__construct($registry, Convenio::class);
     }
 
-    //    /**
-    //     * @return Convenio[] Returns an array of Convenio objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+    * @return Convenio[] Returns an array of Convenio objects
+    */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     //    public function findOneBySomeField($value): ?Convenio
     //    {

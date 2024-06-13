@@ -1,7 +1,169 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EmpresaController!{% endblock %}
+{% block title %}Datos de Empresa{% endblock %}
 
 {% block body %}
-    <h1>Datos de Empresa</h1>
+    <link rel = "stylesheet" href = "{{ asset('css/estilo/datosEmpresa.css') }}">
+
+    <div class = "container">
+        <h1 class = "text-center mb-4">Datos de Empresa</h1>
+
+        <div class = "row">
+            <!-- Columna izquierda -->
+            <div class = "col-md-6">
+                <!-- Select para Empresas -->
+                <div class = "form-group">
+                    <label for = "empresaSelect">Empresa</label>
+                    <select class = "form-control" name = "empresa" id = "empresaSelect">
+                        <option value = "">Selecciona una Empresa</option>
+                        {% for empresa in empresas %}
+                            <option value = "{{ empresa.id }}">{{ empresa.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select para Alumnos -->
+                <div class = "form-group">
+                    <label for = "alumno">Alumno</label>
+                    <select class = "form-control" name = "alumno" id = "alumno">
+                        <option value = "">Selecciona un Alumno</option>
+                        {% for alumno in alumnos %}
+                            <option value = "{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select para Tutores Laborales -->
+                <div class = "form-group">
+                    <label for = "tutorLaboral">Tutor Laboral</label>
+                    <select class = "form-control" name = "tutorLaboral" id = "tutorLaboral">
+                        <option value = "">Selecciona un Tutor Laboral</option>
+                        {% for tutorLaboral in tutoresLaborales %}
+                            <option value = "{{ tutorLaboral.id }}">{{ tutorLaboral.nombre }} {{ tutorLaboral.apellido1 }} {{ tutorLaboral.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select para Cursos Escolares -->
+                <div class = "form-group">
+                    <label for = "cursoEscolar">Curso Escolar</label>
+                    <select class = "form-control" name = "cursoEscolar" id = "cursoEscolar">
+                        <option value = "">Selecciona un Curso Escolar</option>
+                        {% for cursoEscolar in cursosEscolares %}
+                            <option value = "{{ cursoEscolar.id }}">{{ cursoEscolar.anioInicio }} / {{ cursoEscolar.anioFin }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Columna derecha -->
+            <div class = "col-md-6">
+                <!-- Select para Centros de Trabajo -->
+                <div class = "form-group">
+                    <label for = "centroTrabajoSelect">Centro de Trabajo</label>
+                    <select class = "form-control" name = "centroTrabajo" id = "centroTrabajoSelect" disabled>
+                        <option value = "">Selecciona un Centro de Trabajo</option>
+                    </select>
+                </div>
+
+                <!-- Select para Representantes -->
+                <div class = "form-group">
+                    <label for = "representante">Representante</label>
+                    <select class = "form-control" name = "representante" id = "representante">
+                        <option value = "">Selecciona un Representante</option>
+                        {% for representante in representantes %}
+                            <option value = "{{ representante.id }}">{{ representante.nombre }} {{ representante.apellido1 }} {{ representante.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select para Profesores -->
+                <div class = "form-group">
+                    <label for = "profesor">Profesor</label>
+                    <select class = "form-control" name = "profesor" id = "profesor">
+                        <option value = "">Selecciona un Profesor</option>
+                        {% for profesor in profesores %}
+                            <option value = "{{ profesor.id }}">{{ profesor.nombre }} {{ profesor.apellido1 }} {{ profesor.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class = "text-center mb-4">Horarios</h2>
+    <div class = "table-container">
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><input type = "number" id = "lunes" min = "0" max = "8" class = "form-control"></td>
+                    <td><input type = "number" id = "martes" min = "0" max = "8" class = "form-control"></td>
+                    <td><input type = "number" id = "miercoles" min = "0" max = "8" class = "form-control"></td>
+                    <td><input type = "number" id = "jueves" min = "0" max = "8" class = "form-control"></td>
+                    <td><input type = "number" id = "viernes" min = "0" max = "8" class = "form-control"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+   <script>
+        //Obtiene referencia a los elementos select
+        var empresaSelect = document.getElementById('empresaSelect');
+        var centroTrabajoSelect = document.getElementById('centroTrabajoSelect');
+
+        //Datos de los centros de trabajo
+        var centrosTrabajo = {
+            {% for empresa in empresas %}
+                {{ empresa.id }}: [
+                    {% for centroTrabajo in empresa.centros %}
+                        { id: {{ centroTrabajo.id }}, direccion: "{{ centroTrabajo.direccion }}" },
+                    {% endfor %}
+                ],
+            {% endfor %}
+        };
+
+        //Función para actualizar el select de centros de trabajo basado en la empresa seleccionada
+        function actualizarCentrosTrabajo() {
+            //Limpia el select de centros de trabajo
+            centroTrabajoSelect.innerHTML = '<option value = "">Selecciona un Centro de Trabajo</option>';
+
+            //Obtiene el ID de la empresa seleccionada
+            var empresaId = empresaSelect.value;
+
+            //Obtiene los centros de trabajo correspondientes a la empresa seleccionada
+            var centrosTrabajoEmpresa = centrosTrabajo[empresaId];
+
+            //Agrega opciones al select de centros de trabajo
+            if (centrosTrabajoEmpresa) {
+                centrosTrabajoEmpresa.forEach(function(centroTrabajo) {
+                    var option = document.createElement('option');
+                    option.value = centroTrabajo.id;
+                    option.textContent = centroTrabajo.direccion;
+                    centroTrabajoSelect.appendChild(option);
+                });
+
+                //Habilita el select de centros de trabajo
+                centroTrabajoSelect.disabled = false;
+            } else {
+                //Si no hay centros de trabajo para la empresa seleccionada, deshabilitar el select
+                centroTrabajoSelect.disabled = true;
+            }
+        }
+
+        // Escuchar el evento de cambio en el select de empresas
+        empresaSelect.addEventListener('change', actualizarCentrosTrabajo);
+
+        // Actualizar los centros de trabajo inicialmente si hay una empresa seleccionada por defecto
+        actualizarCentrosTrabajo();
+    </script>
 {% endblock %}

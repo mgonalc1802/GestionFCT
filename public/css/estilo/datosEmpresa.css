@@ -1,0 +1,41 @@
+.table-container {
+    max-width: 73%; /* Ajusta el ancho máximo de la tabla según tu diseño */
+    overflow-x: auto; /* Añade scroll horizontal si la tabla es más ancha que el contenedor */
+    margin-left: auto; /* Centra el contenedor a la izquierda */
+    margin-right: auto; /* Centra el contenedor a la derecha */
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Fuerza que las columnas tengan un ancho fijo */
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: center;
+    overflow: hidden; /* Oculta el contenido que sobresale */
+    white-space: nowrap; /* Evita el salto de línea */
+}
+
+.table-container thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.table-container tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-container tbody tr:hover {
+    background-color: #cce5ff;
+}
+
+.table-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
