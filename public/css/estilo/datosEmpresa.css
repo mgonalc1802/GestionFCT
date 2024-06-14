@@ -39,3 +39,7 @@
     box-sizing: border-box;
     text-align: center;
 }
+
+.borde-rojo {
+    border: 1px solid red;
+}

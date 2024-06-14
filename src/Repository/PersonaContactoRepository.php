@@ -21,6 +21,19 @@ class PersonaContactoRepository extends ServiceEntityRepository
         parent::__construct($registry, PersonaContacto::class);
     }
 
+    /**
+     * Devuelve un objeto de tipo PersonaContacto
+     */
+    public function findById($id): ?PersonaContacto
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return PersonaContacto[] Returns an array of PersonaContacto objects
 //     */

@@ -177,7 +177,7 @@ class ProgramaFormativoController extends AbstractController
             $knpSnappyPdf->generateFromHtml($html, $outputPathDefault);
 
             //Indica la ruta de la carpeta pública donde se almacenarán los archivos descargados
-            $outputPathPublic = $this->getParameter('kernel.project_dir') . '/public/pdf/';
+            $outputPathPublic = $this->getParameter('kernel.project_dir') . '/public/pdf/alumnos/';
 
             //Ruta donde se guardará el archivo PDF en la carpeta pública
             $outputPathPublic .= $nombreArchivo;
@@ -185,7 +185,7 @@ class ProgramaFormativoController extends AbstractController
             //Copia el archivo PDF a la carpeta pública
             copy($outputPathDefault, $outputPathPublic);
 
-            //Devuelve un jsonWW
+            //Devuelve un json
             return new JsonResponse(['idConvenio' => $convenio->getId()], Response::HTTP_CREATED);
         } 
         else {

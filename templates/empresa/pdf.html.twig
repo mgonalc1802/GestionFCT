@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestión de Programa Formativo{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        table , td, th {
+            width: 90%;
+            border: 1px solid #595959;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 3px;
+            width: 30px;
+            height: 25px;
+        }
+        th{
+            text-align: center; 
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <table>
+            <tbody>
+                <tr>
+                    <td style = "width: 10%;" rowspan="4"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxRZTchox6pfI3LvADGbsTeNHLusUsnI0TXw&s" alt="Logo" width="100"></td>
+                    <th>IES LAS FUENTEZUELAS</th>
+                    <td>Fecha: {{ fechaActual }}</td>
+                    <td style="width: 20%;" ><img src = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-8J_GMElgcsqVSgG-36UKMlhaah3HvTc6xlAjxQ-xLh7qwCza" weight = "50" height  =  "50"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" rowspan="3" style="text-align: center; vertical-align: middle;">FICHA DE DATOS DE EMPRESAS</td>
+                    <td style="text-align: center; vertical-align: middle;">MD</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;">Versión</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;">Página 1 de 1</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+    </header>
+    <main class = "container">
+        <table>
+            <tbody>
+                <tr>
+                    <td><b>Curso Académico</b></td>
+                    <td>{{ cursoEscolar.anioInicio }}-{{ cursoEscolar.anioFin }}</td>
+                    <td><b>Fecha INICIO FCT</b></td>
+                    <td>{{ fechaInicio }}</td>
+                </tr>
+                <tr>
+                    <td><b>Familia Profesional</b></td>
+                    <td colspan="3">{{ empresa.familiaProfesional }}</td>
+                </tr>
+                <tr>
+                    <td><b>Ciclo Formativo</b></td>
+                    <td colspan="3">{{ alumno.cicloFormativo }}</td>
+                </tr>
+                <tr>
+                    <td><b>Alumnado</b></td>
+                    <td colspan="3">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">DATOS DE LA EMPRESA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nombre/Razón Social</td>
+                    <td>{{ empresa.nombre }}</td>
+                </tr>
+                <tr>
+                    <td>NIF</td>
+                    <td>{{ empresa.nif }}</td>
+                </tr>
+                <tr>
+                    <td>Domicilio Social</td>
+                    <td>{{ empresa.domicilioSocial }}</td>
+                </tr>
+                <tr>
+                    <td>Población</td>
+                    <td>{{ centroTrabajo.localid }}</td>
+                </tr>
+                <tr>
+                    <td>Código Postal</td>
+                    <td>{{ centroTrabajo.localid.codigoPostal[0] }}</td>
+                </tr>
+                <tr>
+                    <td>Provincia</td>
+                    <td>{{ centroTrabajo.localid.provi }}</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>{{ empresa.telefono }}</td>
+                </tr>
+                <tr>
+                    <td>Fax</td>
+                    <td>{{ empresa.fax }}</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td>{{ empresa.email }}</td>
+                </tr>
+                <tr>
+                    <td>Actividad</td>
+                    <td>{{ empresa.actividad }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Representante de la Empresa</th>
+                </tr>
+                <tr>
+                    <td>Representante con certifido digital</td>
+                    <td>{{ empresa.repres.nombre }} {{ empresa.repres.apellido1 }} {{ empresa.repres.apellido2 }}</td>
+                </tr>
+                <tr>
+                    <td>DNI</td>
+                    <td>{{ empresa.repres.dni }}</td>
+                </tr>
+                <tr>
+                    <td>Cargo en la empresa</td>
+                    <td>{{ empresa.repres.cargo }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Centro de Trabajo</th>
+                </tr>
+                <tr>
+                    <td>Domicilio</td>
+                    <td>{{ centroTrabajo.direccion }}</td>
+                </tr>
+                <tr>
+                    <td>Población</td>
+                    <td>{{ centroTrabajo.localid }}</td>
+                </tr>
+                <tr>
+                    <td>Código Postal</td>
+                    <td>{{ centroTrabajo.localid.codigoPostal[0] }}</td>
+                </tr>
+                <tr>
+                    <td>Provincia</td>
+                    <td>{{ centroTrabajo.localid.provi }}</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>{{ centroTrabajo.telefono }}</td>
+                </tr>
+                <tr>
+                    <td>Fax</td>
+                    <td>{{ centroTrabajo.fax }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ centroTrabajo.email }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Horario</th>
+                </tr>
+                <tr>
+                    <td>Nº Horas diarias que el alumno dedicará a la empresa</td>
+                    <td>
+                        <table style = "text-align: center;">
+                            <tbody>
+                                <tr>
+                                    <td>Lunes</td>
+                                    <td>Martes</td>
+                                    <td>Miércoles</td>
+                                    <td>Jueves</td>
+                                    <td>Viernes</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ lunes }}</td>
+                                    <td>{{ martes }}</td>
+                                    <td>{{ miercoles }}</td>
+                                    <td>{{ jueves }}</td>
+                                    <td>{{ viernes }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tutor Laboral de la Empresa</td>
+                </tr>
+                <tr>
+                    <td>Tutor Laboral</td>
+                    <td>{{ tutorLaboral.nombre }} {{ tutorLaboral.apellido1 }} {{ tutorLaboral.apellido2 }}</td>
+                </tr>
+                <tr>
+                    <td>DNI</td>
+                    <td>{{ tutorLaboral.dni }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Profesor Responsable</th>
+                </tr>
+                <tr>
+                    <td>Tutor Docente</td>
+                    <td>{{ profesor.nombre }} {{ profesor.apellido1 }} {{ profesor.apellido2 }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Persona de Contacto de la Empresa</th>
+                </tr>
+                <tr>
+                    <td>Persona de Contacto</td>
+                    <td>{{ personaContacto.nombre }} {{ personaContacto.apellido1 }} {{ personaContacto.apellido2 }}</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>{{ personaContacto.telefono }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
