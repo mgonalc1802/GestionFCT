@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Datos Generales{% endblock %}
+
+{% block body %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="js/archivo/subirArchivo.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="CSS/jquery/jquery-ui.structure.css" type="text/css">
+    <link rel="stylesheet" href="CSS/jquery/jquery-ui.theme.css" type="text/css">
+    <link rel="stylesheet" href="/css/estilo/archivo.css" type="text/css">
+
+    <div class="container mt-2">
+        <h1 class = "text-center">Lista de PDFs</h1>
+        <ul class="list-group">
+            {% for pdf in pdfFiles %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ asset('pdf/empresas/' ~ pdf) }}" target="_blank">{{ pdf }}</a>
+                    <a href="#" class="btn btn-secondary btn-sm action-edit" data-pdf="{{ pdf }}">Enviar</a>
+                </li>
+            {% else %}
+                <li class="list-group-item">No se encontraron archivos PDF.</li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <input type="file" class="form-control-file mt-2" name="file" id="subir" accept="application/pdf">
+                <button id="guardar" class="btn btn-primary">Subir</button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal -->
+    <div id="miModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enviar PDF</h5>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="emailForm" action="/enviarEmail" method="post">
+                    <div class="form-group">
+                        <label for="profesorRemitente">Profesor Remitente:</label>
+                        <select class="form-control" name="profesor" id="profesorRemitente">
+                            {% for profesor in profesores %}
+                                <option value="{{ profesor.email }}">{{ profesor.email }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresaDestinataria">Empresa Destinataria:</label>
+                        <select class="form-control" name="empresa" id="empresaDestinataria">
+                            {% for empresa in empresas %}
+                                <option value="{{ empresa.email }}">{{ empresa.email }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <input type="hidden" id="pdfFile" name="pdfFile">
+                    <button type="submit" id="enviarEmail" class="btn btn-primary">Enviar Email</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeModalFooter">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //Obtiene el modal
+        var modal = document.getElementById("miModal");
+
+        //Obtiene el botón que abre el modal
+        var editButtons = document.querySelectorAll('.action-edit');
+
+        //Obtiene el <span> que cierra el modal
+        var closeModalElements = document.querySelectorAll('#closeModal, #closeModalFooter');
+
+        //Cuando el usuario hace clic en el botón, abre el modal
+        editButtons.forEach(function(btn) {
+            btn.onclick = function(event) {
+                event.preventDefault();
+                var pdfFile = btn.getAttribute('data-pdf');
+                document.getElementById('pdfFile').value = pdfFile;
+                modal.style.display = "block";
+            };
+        });
+
+        //Cuando el usuario hace clic en la X o el botón "Cerrar", cierra el modal
+        closeModalElements.forEach(function(elem) {
+            elem.onclick = function() {
+                modal.style.display = "none";
+            };
+        });
+
+        //Cuando el usuario hace clic fuera del modal, cierra el modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+{% endblock %}

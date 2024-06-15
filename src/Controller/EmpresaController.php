@@ -82,20 +82,6 @@ class EmpresaController extends AbstractController
 
         //Formatea la fecha como cadena
         $fechaFormateada = $fechaActual->format('d/m/Y');
-
-        // $idAlumno = 9;
-        // $idTutorLaboral = 1;
-        // $idEmpresa = 1;
-        // $idCentroTrabajo = 1;
-        // $fechaInicio = "22 de Julio de 2024";
-        // $idProfesor = 3;
-        // $idPersonaContacto = 1;
-        // $idCursoEscolar = 1;
-        // $lunes = 8;
-        // $martes = 8;
-        // $miercoles = 8;
-        // $jueves = 8;
-        // $viernes = 8;
         
         //Busca el los alumno
         $alumno = $userRepository->findById($idAlumno);

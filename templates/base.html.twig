@@ -42,9 +42,9 @@
                             <a class = "nav-link" href = "{{ path('admin') }}">Admin</a>
                         </li>
                     {% endif %}
-                    {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                    {% if  is_granted('ROLE_ALUMNO') or is_granted('ROLE_PROFESOR') %}
                         <li class = "nav-item">
-                            <a class = "nav-link" href = "">Datos Generales</a>
+                            <a class = "nav-link" href = "/datosGenerales">Datos Generales</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_PROFESOR') %}
