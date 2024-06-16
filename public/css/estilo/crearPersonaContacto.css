@@ -16,3 +16,27 @@ select:focus
     border-color: #66afe9; 
     box-shadow: 0 0 5px rgba(102, 175, 233, 0.5); 
 }
+
+#id
+{
+    display: none;
+}
+
+#modificar {
+    background-color: #1e4f7f; 
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px; 
+    transition: background-color 0.3s ease; 
+}
+
+#modificar:hover {
+    background-color: #3a5c7e; 
+}

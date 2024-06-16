@@ -325,7 +325,7 @@ function generaPDF(json){
                 window.location.href = "/";
             },
             error: function (xhr, status, error) {
-                alert('Error: ' + xhr.responseText);
+                alert('Error: Los datos de esta empresa con el alumno ya existen.');
             }
         });
 }

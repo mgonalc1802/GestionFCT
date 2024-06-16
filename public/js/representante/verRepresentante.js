@@ -73,7 +73,7 @@ function traeRepresentantes()
                                                 </svg>\
                                             </a>\
                                             <div class="dropdown-menu dropdown-menu-right">\
-                                                <a class="dropdown-item action-edit" href="/modificarPersonaContacto/' + response[i].id + '" data-action-name="edit"><span class="action-label">Edit</span></a>\
+                                                <a class="dropdown-item action-edit" href="/modificarRepresentante/' + response[i].id + '" data-action-name="edit"><span class="action-label">Edit</span></a>\
                                                 <a class="dropdown-item action-delete text-danger" onclick = "borrarRepresentante(' + response[i].id + ')" data-action-name="delete"><span class="action-label">Delete</span></a>\
                                             </div>\
                                         </div>\

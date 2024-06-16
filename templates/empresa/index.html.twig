@@ -79,7 +79,7 @@
                 <div class = "form-group">
                     <label for = "representante">Persona Contacto</label>
                     <select class = "form-control" name = "representante" id = "representante">
-                        <option value = "">Selecciona un Representante</option>
+                        <option value = "">Selecciona una Persona Contacto</option>
                         {% for representante in personasContacto %}
                             <option value = "{{ representante.id }}">{{ representante.nombre }} {{ representante.apellido1 }} {{ representante.apellido2 }}</option>
                         {% endfor %}

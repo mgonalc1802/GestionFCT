@@ -1,0 +1,59 @@
+{% include '@EasyAdmin/page/content.html.twig' %}
+
+<div id = "modRepresentante">
+    <!-- Cargar archivos JS de JQuery UI -->
+    <script src = "https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "/js/representante/crearRepresentante.js"></script>
+    <script src = "https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    
+    <!-- Cargar los CSS de JQuery UI -->
+    <link rel = "stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel = "stylesheet" href = "{{ asset('css/estilo/crearPersonaContacto.css') }}" type = "text/css">
+
+    <form action = "/admin?routeName = representantes" method = "post">
+        <label id = "id">{{representante.id}}</label>
+
+        <div class = "col-md-3">
+            <div class = "form-group">
+                <label for = "dni" class = "form-control-label required">DNI:</label>
+                <input type = "text" class = "form-control" name = "dni" id = "dni" value = "{{representante.dni}}" pattern="[0-9]{8}[A-Z]{1}" placeholder = "11111111X" size = "9" required>
+                <label class = "errores" id = "errDni">Introduce un DNI válido.</label>
+            </div>
+        </div>
+        <div class = "col-md-3">
+            <div class = "form-group">
+                <label for = "nombre" class = "form-control-label required">Nombre:</label>
+                <input type = "text" class = "form-control" name = "nombre" id = "nombre" size = "255" value = "{{representante.nombre}}" placeholder = "María" required>
+                <label class = "errores" id = "errNombre">Introduce un nombre.</label>
+            </div>
+        </div>
+
+        <div class = "col-md-3">
+            <div class = "form-group">
+                <label for = "apellido1" class = "form-control-label required">Primer Apellido:</label>
+                <input type = "text" class = "form-control" name = "apellido1" id = "apellido1" value = "{{representante.apellido1}}" placeholder = "González" required>
+                <label class = "errores" id = "errApe1">Introduce un apellido.</label>
+            </div>
+        </div>
+        <div class = "col-md-3">
+            <div class = "form-group">
+                <label for = "apellido2" class = "form-control-label">Segundo Apellido:</label>
+                <input type = "text" class = "form-control" name = "apellido2" id = "apellido2" value = "{{representante.apellido2}}" placeholder = "Alcalá">
+            </div>
+        </div>
+
+        <div class = "col-md-3">
+            <div class = "form-group">
+                <label for = "cargo" class = "form-control-label required">Cargo:</label>
+                <input type = "text" class = "form-control" name = "cargo" id = "cargo" value = "{{representante.cargo}}" placeholder = "Jefe" required>
+                <label class = "errores" id = "errCargo">Introduce un cargo.</label>
+            </div>
+        </div>
+        <div class = "col-sm-2 mb-3">
+            <button name = "Modificar" id = "modificar" >Modificar</button>
+        </div>
+    </form>
+
+</div>

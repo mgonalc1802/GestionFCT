@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Datos Generales{% endblock %}
+
+{% block body %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="js/archivo/subirEncuesta.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="CSS/jquery/jquery-ui.structure.css" type="text/css">
+    <link rel="stylesheet" href="CSS/jquery/jquery-ui.theme.css" type="text/css">
+    <link rel="stylesheet" href="/css/estilo/archivoAlumno.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <div class="container mt-4">
+        <h1 class="text-center">Mis Datos</h1>
+        <div class="table-container">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Ficha</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>DNI</th>
+                                <td>{{ alumno.dni }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <td>{{ alumno.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Primer Apellido</th>
+                                <td>{{ alumno.apellido1 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Segundo Apellido</th>
+                                <td>{{ alumno.apellido2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ alumno.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ciclo Formativo</th>
+                                <td>{{ alumno.cicloFormativo }} <b>({{ alumno.cicloFormativo.siglas }})</b></td>
+                            </tr>
+                            <tr>
+                                <th>Programa Formativo</th>
+                                {% if pdf is not null %}
+                                    <td><a href="{{ asset('pdf/empresas/' ~ pdf) }}" target="_blank">{{ pdf }}</a></td>
+                                {% else %}
+                                    <td>No se encontraron archivos PDF.</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th>Encuesta</th>
+                                {% if pdfEncuesta is not null %}
+                                    <td><a href="{{ asset('pdf/empresas/' ~ pdfEncuesta) }}" target="_blank">{{ pdfEncuesta }}</a></td>
+                                {% else %}
+                                    <td>
+                                        <div class="custom-file-input mt-2">
+                                            <input type="file" class="form-control-file" name="file" id="subir" accept="application/pdf">
+                                            <span class="btn-subir">Seleccionar</span>
+                                        </div>
+                                    </td>                   
+                                {% endif %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Empresa</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Nombre</th>
+                                <td>{{ empresa.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>{{ empresa.telefono }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ empresa.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Actividad</th>
+                                <td>{{ empresa.actividad }}</td>
+                            </tr>
+                            <tr>
+                                <th>Localidad</th>
+                                <td>{{ empresa.localid }}</td>
+                            </tr>
+                            <tr>
+                                <th>Provincia</th>
+                                <td>{{ empresa.localid.provi }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tutor Laboral</th>
+                                <td>{{ convenio.tutorLab.nombre }} {{ convenio.tutorLab.apellido1 }} {{ convenio.tutorLab.apellido2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Persona de Contacto</th>
+                                <td>{{ empresa.personaCont.nombre }} {{ empresa.personaCont.apellido1 }} {{ empresa.personaCont.apellido2 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,14 +1,17 @@
 .table-container {
-    max-width: 73%; /* Ajusta el ancho máximo de la tabla según tu diseño */
-    overflow-x: auto; /* Añade scroll horizontal si la tabla es más ancha que el contenedor */
-    margin-left: auto; /* Centra el contenedor a la izquierda */
-    margin-right: auto; /* Centra el contenedor a la derecha */
+    max-width: 73%; 
+    overflow-x: auto; 
+    margin-left: auto; 
+    margin-right: auto;
 }
 
+.table-container{
+    margin-bottom: 40px;
+}
 .table-container table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* Fuerza que las columnas tengan un ancho fijo */
+    table-layout: fixed;
 }
 
 .table-container th,
@@ -16,8 +19,8 @@
     border: 1px solid #dee2e6;
     padding: 8px;
     text-align: center;
-    overflow: hidden; /* Oculta el contenido que sobresale */
-    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; 
+    white-space: nowrap;
 }
 
 .table-container thead {
@@ -42,4 +45,13 @@
 
 .borde-rojo {
     border: 1px solid red;
+}
+
+
+@media (max-width: 768px) {
+    .table-container {
+        max-width: 100%; 
+        margin-left: 8%; 
+        margin-right: 8%;
+    }
 }

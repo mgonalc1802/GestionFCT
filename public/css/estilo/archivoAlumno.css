@@ -1,0 +1,31 @@
+.container{
+    margin-bottom: 40px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.table-container .card {
+    flex: 1;
+    margin: 10px;
+}
+.table th, .table td {
+    text-align: left;
+    padding: 10px;
+}
+.table thead th {
+    text-align: center;
+}
+.table th {
+    background-color: #f8f9fa;
+}
+
+
+@media (max-width: 768px) {
+    .table-container {
+        display: grid;
+    }
+}

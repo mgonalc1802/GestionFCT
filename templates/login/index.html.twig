@@ -15,33 +15,24 @@
         </div>
     {% endif %}
 
-
-    <div class="container login-form">
-        <form method = "post">
-            <h1>Iniciar Sesión</h1>
-            <div class = "row">
-                <div class = "col-xl-3 col-sm-1">
-                </div>
-                <div class = "col-xl-6 col-sm-9">
-                    <div class = "form-group">
-                        <label for = "username" class = "form-label">Email:</label>
-                        <input type = "text" id = "username" name = "_username" value = "{{ last_username }}" class = "form-control">
+    <form method="post">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div id = "card" class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <h3 class="mb-5">Iniciar Sesión</h3>
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control form-control-lg" placeholder = "Email"/>
+                            </div>
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input type="password" id="password" name="_password" class="form-control form-control-lg" placeholder = "Contraseña"/>
+                            </div>
+                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                        </div>
                     </div>
-                    <div class = "form-group">
-                        <label for = "password" class = "form-label">Contraseña:</label>
-                        <input type = "password" id = "password" name = "_password" class = "form-control">
-                    </div>
-                </div>
-                <div class = "col-xl-3 col-sm-2">
                 </div>
             </div>
-            <div class = "row">
-                <div class = "col-xl-5 col-sm-5">
-                </div>
-                <div class = "col-xl-7 col-sm-7">
-                    <button class = "enviar" type = "submit">Iniciar Sesión</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 {% endblock %}

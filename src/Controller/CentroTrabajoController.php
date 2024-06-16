@@ -27,6 +27,45 @@ class CentroTrabajoController extends AbstractController
         return new JsonResponse($centrosArray);
     }
 
+    #[Route('/API/modificarCentro', name: "modifica", methods: ['POST'])]
+    public function update(Request $request, EntityManagerInterface $manager, CentroTrabajoRepository $centroTrabajoRepository): JsonResponse
+    {
+        //Obtiene el json enviado
+        $data = json_decode($request->getContent(), true);
+        
+        //Distingue cada atributo del json
+        $id = $data['id'];
+        $email = $data['email'];
+        $telefono = $data['telefono'];
+        $direccion = $data['direccion'];
+        $fax = $data['fax'];
+
+        //Si están vacíos
+        if(empty($email) || empty($telefono) || empty($direccion))
+        {
+            //Lanza una json indicando el error
+            throw new JsonResponse('No puede haber valores vacíos.', 400);
+        }
+
+        $centroTrabajo = $centroTrabajoRepository->findById($id);
+
+        //Le añade sus propiedades
+        $centroTrabajo
+            ->setEmail($email)
+            ->setTelefono($telefono)
+            ->setDireccion($direccion)
+            ->setFax($fax);
+
+        //Llama a la bdd
+        $manager->persist($centroTrabajo);
+
+        //Actualiza la bdd
+        $manager->flush();
+
+        //Devuelve un json
+        return new JsonResponse(['PCentro de Trabajo Actualizado. ID: ' => $centroTrabajo->getId()], Response::HTTP_CREATED);
+    }
+
     #[Route('/API/crearCentro', name: "crearCentro", methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $manager, LocalidadRepository $localidadRepository): JsonResponse
     {

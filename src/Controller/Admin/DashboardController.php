@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\{User, TutorLaboral, Empresa, Provincia, Localidad, CursoEscolar, FamiliaProfesional, CicloFormativo};
+use App\Entity\{User, TutorLaboral, Empresa, Provincia, Localidad, CursoEscolar, FamiliaProfesional, CicloFormativo, PersonaContacto, Representante, CentroTrabajo};
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Dashboard, Action, Actions, Crud, Assets, MenuItem};
 use EasyCorp\Bundle\EasyAdminBundle\Controller\{AbstractDashboardController, AbstractCrudController};
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +28,14 @@ class DashboardController extends AbstractDashboardController
         return $this->render('centro_trabajo/show.html.twig');
     }
 
+    #[Route('/modificarCentro/{id}', name: 'modificarCentro')]
+    public function updateCe(CentroTrabajo $centro): Response
+    {
+        return $this->render('centro_trabajo/update.html.twig', [
+            'centro' => $centro,
+        ]);
+    }
+
     #[Route('/admin/representantes', name: 'representantes')]
     public function representantes(): Response
     {
@@ -40,10 +48,26 @@ class DashboardController extends AbstractDashboardController
         return $this->render('representante/show.html.twig');
     }
 
+    #[Route('/modificarRepresentante/{id}', name: 'modificarRepresentante')]
+    public function update(Representante $representante): Response
+    {
+        return $this->render('representante/update.html.twig', [
+            'representante' => $representante,
+        ]);
+    }
+
     #[Route('/admin/personasContacto', name: 'personasContacto')]
     public function personasContacto(): Response
     {
         return $this->render('persona_contacto/index.html.twig');
+    }
+
+    #[Route('/modificarPersonaContacto/{id}', name: 'modificarRutas')]
+    public function updateRe(PersonaContacto $personaContacto): Response
+    {
+        return $this->render('persona_contacto/update.html.twig', [
+            'personaContacto' => $personaContacto,
+        ]);
     }
 
     #[Route('/admin/verPersonasContacto', name: 'verPersonasContacto')]
@@ -64,11 +88,11 @@ class DashboardController extends AbstractDashboardController
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
-    // public function configureAssets(): Assets
-    // {
-    //     return parent::configureAssets()
-    //         ->addCssFile("css/estilo/easyAdmin/admin.css");
-    // }
+    public function configureAssets(): Assets
+    {
+        return parent::configureAssets()
+            ->addCssFile("css/estilo/easyAdmin/admin.css");
+    }
 
     public function configureMenuItems(): iterable
     {

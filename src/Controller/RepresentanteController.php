@@ -85,6 +85,47 @@ class RepresentanteController extends AbstractController
         return new JsonResponse("Representante Borrado");
     }
 
+    #[Route('/API/modificarRepresentante', name: "modificarPersonaContacto", methods: ['POST'])]
+    public function update(Request $request, EntityManagerInterface $manager, RepresentanteRepository $representanteRepository): JsonResponse
+    {
+        //Obtiene el json enviado
+        $data = json_decode($request->getContent(), true);
+        
+        //Distingue cada atributo del json
+        $id = $data['id'];
+        $dni = $data['dni'];
+        $nombre = $data['nombre'];
+        $apellido1 = $data['apellido1'];
+        $apellido2 = $data['apellido2'];
+        $cargo = $data['cargo'];
+
+        //Si están vacíos
+        if(empty($dni) || empty($nombre) || empty($apellido1) || empty($cargo))
+        {
+            //Lanza una json indicando el error
+            throw new JsonResponse('No puede haber valores vacíos.', 400);
+        }
+
+        $personaActualizada = $representanteRepository->findById($id);
+
+        //Le añade sus propiedades
+        $personaActualizada
+            ->setDni($dni)
+            ->setNombre($nombre)
+            ->setApellido1($apellido1)
+            ->setApellido2($apellido2)
+            ->setCargo($cargo);
+
+        //Llama a la bdd
+        $manager->persist($personaActualizada);
+
+        //Actualiza la bdd
+        $manager->flush();
+
+        //Devuelve un json
+        return new JsonResponse(['Persona Contacto Actualizada. ID: ' => $personaActualizada->getId()], Response::HTTP_CREATED);
+    }
+
     /**
      * Método para validar DNI. 
      * Requiere el parámetro $dni para poder hacer la validación

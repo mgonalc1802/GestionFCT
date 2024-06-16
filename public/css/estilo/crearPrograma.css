@@ -1,3 +1,7 @@
 .borde-rojo {
     border: 1px solid red;
 }
+
+.container{
+    margin-bottom:70px;
+}

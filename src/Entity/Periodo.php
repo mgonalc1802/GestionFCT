@@ -104,4 +104,9 @@ class Periodo
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->fechaInicio->format('Y-m-d') . "/" . $this->fechaFin->format('Y-m-d');
+    }
 }

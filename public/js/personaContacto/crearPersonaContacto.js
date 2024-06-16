@@ -1,23 +1,20 @@
 //Espera a que la página cargue
 $(function()
 {
-    //Genera el botón de crearOther con las mismas características de EasyAdmin
-    var crearOther = '<button class="crearOther btn btn-secondary" type="submit" value="crearOther" data-action-name="crearOther" form="new-Ruta-form">\
-                        <span class="btn-label"><span class="action-label">Crear y Añadir Otro</span></span>\
-                      </button>';
-
     //Genera el bot´pn CrearSalir con las mismas características de EasyAdmin
     var crearSalir = '<button class="crearSalir btn btn-primary action-save" type="submit" name="ea[newForm][btn]" value="saveAndReturn" data-action-name="saveAndReturn" form="new-User-form">\
                         <span class="btn-label"><span class="action-label">Crear</span></span>\
                       </button>';
 
     //Lo introduce en el contenedor de easyadmin
+    $(".content").append($("#modPersonaContacto"));
+
+    //Lo introduce en el contenedor de easyadmin
     $(".content").append($("#personaContacto"));
 
     //Obtiene el header de la plantilla de easyAdmin
-    $(".content-header-title h1").append('Crear Persona de Contacto');
+    $(".content-header-title h1").append('Crear/Modificar Persona de Contacto');
     $(".page-actions").append(crearSalir);
-    // $(".page-actions").append(crearOther);
 
     //Obtiene el botón
     var enviar = $(".crearSalir");
@@ -49,6 +46,16 @@ $(function()
             //Llama al método insertarRuta
             insertarPersonaContacto(json);
         }
+    })
+
+    $("#modificar").click(function(ev)
+    {
+        //Previene el submit que realiza por defecto
+        ev.preventDefault();
+
+        //Llama al método AJAX para modificar ruta
+        guardarPersonaContacto();
+
     })
 });
 
@@ -131,4 +138,38 @@ function insertarPersonaContacto(json)
             window.location.href = "/admin?routeName=verPersonasContacto";
         }
     });
+}
+
+function guardarPersonaContacto()
+{
+    //Obtiene los datos del formulario
+    var id = $("#id")[0].innerText; 
+    var nombre = $("#nombre").val();
+    var apellido1 = $("#apellido1").val();   
+    var apellido2 = $("#apellido2").val();
+    var telefono = $("#telefono").val();
+
+    var json = 
+    {
+        "id": id,
+        "nombre": nombre,
+        "apellido1": apellido1,
+        "apellido2": apellido2,
+        "telefono": telefono,
+    };
+
+    //Llamada AJAX que se encarga de insertar Ruta
+    $.ajax(
+        {
+            url: "/API/modificarPersonaContacto",
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(json), 
+            contentType: 'application/json', 
+            processData: false,
+            success: function (response) 
+            {
+                window.location.href = "/admin?routeName=verPersonasContacto";
+            }
+        });
 }

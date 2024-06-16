@@ -13,22 +13,47 @@
     <link rel="stylesheet" href="CSS/jquery/jquery-ui.theme.css" type="text/css">
     <link rel="stylesheet" href="/css/estilo/archivo.css" type="text/css">
 
-    <div class="container mt-2">
-        <h1 class = "text-center">Lista de PDFs</h1>
-        <ul class="list-group">
-            {% for pdf in pdfFiles %}
+    <div class="container">
+        <h1 class="text-center">Lista de PDFs</h1>
+        <div class="list-container">
+            <ul class="list-group">
+                <li class="list-group-item text-center"><h2>Para Enviar</h2></li>
+                {% for pdf in pdfFiles %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ asset('pdf/empresas/' ~ pdf) }}" target="_blank">{{ pdf }}</a>
+                        <a href="#" class="btn btn-secondary btn-sm action-edit" data-pdf="{{ pdf }}">Enviar</a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No se encontraron archivos PDF.</li>
+                {% endfor %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{{ asset('pdf/empresas/' ~ pdf) }}" target="_blank">{{ pdf }}</a>
-                    <a href="#" class="btn btn-secondary btn-sm action-edit" data-pdf="{{ pdf }}">Enviar</a>
+                    <input type="file" class="form-control-file mt-2" name="file" id="subir" accept="application/pdf">
+                    <button id="guardar" class="btn btn-primary">Subir</button>
                 </li>
-            {% else %}
-                <li class="list-group-item">No se encontraron archivos PDF.</li>
-            {% endfor %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <input type="file" class="form-control-file mt-2" name="file" id="subir" accept="application/pdf">
-                <button id="guardar" class="btn btn-primary">Subir</button>
-            </li>
-        </ul>
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item text-center"><h2>Programas</h2></li>
+                {% for pdf in pdfFilesAlumno %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ asset('pdf/alumnos/' ~ pdf) }}" target="_blank">{{ pdf }}</a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No se encontraron archivos PDF.</li>
+                {% endfor %}
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item text-center"><h2>Encuestas Alumnos</h2></li>
+                {% for pdf in pdfFilesEncuesta %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ asset('pdf/encuestas/' ~ pdf) }}" target="_blank">{{ pdf }}</a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">No se encontraron archivos PDF.</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -67,16 +92,16 @@
     </div>
 
     <script>
-        //Obtiene el modal
+        // Obtiene el modal
         var modal = document.getElementById("miModal");
 
-        //Obtiene el botón que abre el modal
+        // Obtiene el botón que abre el modal
         var editButtons = document.querySelectorAll('.action-edit');
 
-        //Obtiene el <span> que cierra el modal
+        // Obtiene el <span> que cierra el modal
         var closeModalElements = document.querySelectorAll('#closeModal, #closeModalFooter');
 
-        //Cuando el usuario hace clic en el botón, abre el modal
+        // Cuando el usuario hace clic en el botón, abre el modal
         editButtons.forEach(function(btn) {
             btn.onclick = function(event) {
                 event.preventDefault();
@@ -86,14 +111,14 @@
             };
         });
 
-        //Cuando el usuario hace clic en la X o el botón "Cerrar", cierra el modal
+        // Cuando el usuario hace clic en la X o el botón "Cerrar", cierra el modal
         closeModalElements.forEach(function(elem) {
             elem.onclick = function() {
                 modal.style.display = "none";
             };
         });
 
-        //Cuando el usuario hace clic fuera del modal, cierra el modal
+        // Cuando el usuario hace clic fuera del modal, cierra el modal
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";

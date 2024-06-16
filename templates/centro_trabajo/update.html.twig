@@ -1,0 +1,54 @@
+{% include '@EasyAdmin/page/content.html.twig' %}
+
+<div id = "modCentroTrabajo">
+    <!-- Cargar archivos JS de JQuery UI -->
+    <script src = "https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "/js/centro/modificarCentro.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    
+    <!-- Cargar los CSS de JQuery UI -->
+    <link rel = "stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel = "stylesheet" href = "{{ asset('css/estilo/crearCentro.css') }}" type = "text/css">
+
+    <form action = "/admin?routeName = centros" method = "post">
+        <label id = "id">{{centro.id}}</label>
+
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "email" class = "form-control-label required">Email:</label>
+                    <input type = "email" class = "form-control" name = "email" id = "email" value = "{{centro.email}}" pattern = ".+@example\.com" size = "255" required>
+                    <label class = "errores" id = "errEmail">Introduce un email válido.</label>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "telefono" class = "form-control-label required">Teléfono:</label>
+                    <input type = "tel" class = "form-control" name = "telefono" id = "telefono" value = "{{centro.telefono}}" pattern = "\d{9}" placeholder = "953123456" required>
+                    <label class = "errores" id = "errTel">Introduce un teléfono válido.</label>
+                </div>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "direccion" class = "form-control-label required">Dirección:</label>
+                    <input type = "text" class = "form-control" id = "direccion" value = "{{centro.direccion}}" name = "direccion" maxlength = "255" required>
+                    <label class = "errores" id = "errDir">Introduce una dirección.</label>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "form-group">
+                    <label for = "fax">Fax:</label>
+                    <input type = "number" class = "form-control" value = "{{centro.fax}}" name = "fax" id = "fax">
+                </div>
+            </div>
+        </div>
+        <div class = "col-sm-2 mb-3">
+            <button name = "Modificar" id = "modificar" >Modificar</button>
+        </div>
+    </form>
+</div>

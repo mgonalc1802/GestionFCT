@@ -3,76 +3,75 @@
 {% block title %}Programa Formativo{% endblock %}
 
 {% block body %}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src = "https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src = "js/programaFormativo/crearPrograma.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src = "https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel = "stylesheet" href = "CSS/jquery/jquery-ui.structure.css" type = "text/css">
-    <link rel = "stylesheet" href = "CSS/jquery/jquery-ui.theme.css" type = "text/css">
+    <link rel = "stylesheet" href = "//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel = "stylesheet" href = "/css/estilo/crearPrograma.css" type = "text/css">
 
-<div class = "formularioPrograma">
-    <h1 class = "text-center">Programa Formativo</h1>
-    <div class = "row">
-        <div class = "col-md-2">
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">Programa Formativo</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for = "empresas">Selecciona una Empresa:</label>
+                    <select id = "empresas" name = "empresas" class = "form-control">
+                        {% for empresa in empresas %}
+                            <option value = "{{ empresa.id }}">{{ empresa.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                <label for = "tutoresLaborales">Selecciona un Tutor Laboral:</label>
+                    <select id = "tutoresLaborales" name = "tutoresLaborales" class = "form-control">
+                        {% for tutor in tutoresLaborales %}
+                            <option value = "{{ tutor.id }}">{{ tutor.nombre }} {{ tutor.apellido1 }} {{ tutor.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for = "alumnos">Selecciona un Alumno:</label>
+                    <select id = "alumnos" name = "alumnos" class = "form-control">
+                        {% for alumno in alumnos %}
+                            <option value = "{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for = "centrosTrabajo">Selecciona un Centro de Trabajo:</label>
+                    <select id = "centrosTrabajo" name = "centrosTrabajo" class = "form-control" disabled>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for = "cursoEscolar">Curso Escolar:</label>
+                        <select id = "cursosEscolar" name = "cursosEscolar" class = "form-control">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="fechaInicio">Fecha de Inicio</label>
+                                <input type="text" class="form-control" id="fechaInicio" name="fechaInicio" placeholder="Ingrese la fecha de inicio">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="fechaFin">Fecha de Fin</label>
+                                <input type="text" class="form-control" id="fechaFin" name="fechaFin" placeholder="Ingrese la fecha de fin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class = "col-md-4">
-            <label for = "alumnos">Selecciona un Alumno:</label>
-            <select id = "alumnos" name = "alumnos" class = "form-control">
-                {% for alumno in alumnos %}
-                    <option value = "{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apellido1 }} {{ alumno.apellido2 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class = "col-md-4">
-            <label for = "tutoresLaborales">Selecciona un Tutor Laboral:</label>
-            <select id = "tutoresLaborales" name = "tutoresLaborales" class = "form-control">
-                {% for tutor in tutoresLaborales %}
-                    <option value = "{{ tutor.id }}">{{ tutor.nombre }} {{ tutor.apellido1 }} {{ tutor.apellido2 }}</option>
-                {% endfor %}
-            </select>
+        <div class="text-center">
+            <button id = "generar" type="button" class="btn btn-primary">Generar</button>
         </div>
     </div>
-    <div class = "row mt-3">
-        <div class = "col-md-2">
-        </div>
-        <div class = "col-md-4">
-            <label for = "empresas">Selecciona una Empresa:</label>
-            <select id = "empresas" name = "empresas" class = "form-control">
-                {% for empresa in empresas %}
-                    <option value = "{{ empresa.id }}">{{ empresa.nombre }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class = "col-md-4">
-            <label for = "centrosTrabajo">Selecciona un Centro de Trabajo:</label>
-            <select id = "centrosTrabajo" name = "centrosTrabajo" class = "form-control" disabled>
-            </select>
-        </div>
-    </div>
-    <div class = "row mt-3">
-        <div class = "col-md-2">
-        </div>
-        <div class = "col-md-3">
-            <label for = "fechaInicio">Fecha de Inicio:</label>
-            <input type = "text" id = "fechaInicio" name = "fechaInicio" class = "form-control">
-        </div>
-        <div class = "col-md-3">
-            <label for = "fechaFin">Fecha de Fin:</label>
-            <input type = "text" id = "fechaFin" name = "fechaFin" class = "form-control">
-        </div>
-        <div class = "col-md-2">
-            <label for = "cursoEscolar">Curso Escolar:</label>
-            <select id = "cursosEscolar" name = "cursosEscolar" class = "form-control">
-            </select>
-        </div>
-    </div>
-
-    <div class = "text-center mt-4">
-        <button id = "generar" class = "btn btn-primary">Generar</button>
-    </div>
-</div>
 
 {% endblock %}

@@ -1,49 +1,51 @@
 
 .sidebar
 {
-    background-color: #67988e;
+    background-color: #1e4f7f;
 }
 
-.menu-item span, .menu-item i::before, .content-header-title h1, .fa-stack .user-avatar-icon-foreground::before
+.menu-item span, .menu-item i::before, .content-header-title h1, .user-name
 {
-    color: black;
+    color: white;
+}
+
+.logo-custom
+{
+    color: white;
+    font-size: 24px;
+    font-weight: bold;  
 }
 
 .menu li:hover
 {
-    background-color: #a4c1bb;
+    background-color: #6f8ca8;
 }
 
 .main-content aside
 {
-    background-color: #314647;
+    background-color: #1e4f7f;
 }
 
 .content-wrapper, .main-content
 {
-    background: -webkit-linear-gradient(top, #a4c1bb, #d7dcd7);
+    background: -webkit-linear-gradient(top, #a5b8cb, #bbcad8);
 }
 
 .content-header
 {
-    background-color:  #a4c1bb;
+    background-color:  #a5b8cb;
 }
 
 .btn
 {
-    background-color: #486a63;
+    background-color: #1e4f7f;
     color: white;
 }
 
 .btn:hover
 {
-    background-color: #516b66;
+    background-color: #6183a5 !important;
     color: white;
-}
-
-#User_password_first, #User_password_second
-{
-    width: 41%;
 }
 
 .menu-item-label

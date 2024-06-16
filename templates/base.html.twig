@@ -6,29 +6,20 @@
         <link rel="icon" type="png" href="images/decorativas/logo.png">
         {% block stylesheets %}
             <link rel="website icon" type="png" href="images/decorativas/logo.png">
+            <link rel="stylesheet" href="{{ asset('css/estilo/base.css') }}">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            {# <link rel="stylesheet" href="{{ asset('css/estilo/base.css') }}"> #}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         {% endblock %}
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            .footer {
-                margin-top: auto;
-            }
-        </style>
     </head>
     <body>
         <header>
             <nav class = "navbar navbar-expand-lg navbar-light bg-light">
-                <a class = "navbar-brand" href  =  ""><img src = "{{ asset('images/decorativas/logo.png') }}" weight  =  "50" height  =  "50"/></a>
-                <a class = "navbar-brand" href  =  ""><img src = "{{ asset('images/decorativas/logoLetra.png') }}" weight  =  "40" height  =  "40"/></a>
+                <a class = "navbar-brand" href = ""><img src = "{{ asset('images/decorativas/logo.png') }}" weight = "50" height = "50"/></a>
+                <a class = "navbar-brand" href = ""><img src = "{{ asset('images/decorativas/logoLetra.png') }}" weight = "40" height = "40"/></a>
                 <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNav" aria-controls = "navbarNav" aria-expanded = "false" aria-label = "Toggle navigation">
                     <span class = "navbar-toggler-icon"></span>
                 </button>
@@ -42,9 +33,14 @@
                             <a class = "nav-link" href = "{{ path('admin') }}">Admin</a>
                         </li>
                     {% endif %}
-                    {% if  is_granted('ROLE_ALUMNO') or is_granted('ROLE_PROFESOR') %}
+                    {% if is_granted('ROLE_PROFESOR') %}
                         <li class = "nav-item">
                             <a class = "nav-link" href = "/datosGenerales">Datos Generales</a>
+                        </li>
+                    {% endif %}
+                    {% if  is_granted('ROLE_ALUMNO') %}
+                        <li class = "nav-item">
+                            <a class = "nav-link" href = "/datos">Datos Generales</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_PROFESOR') %}
@@ -61,7 +57,7 @@
                     <ul class = "navbar-nav ml-auto">
                         <li class = "nav-item">
                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') or is_granted('ROLE_GUIA') %}
-                                <span class  =  "nombreUser">{{ app.user.nombre }} </span> 
+                                <span class = "nombreUser">{{ app.user.nombre }} </span> 
                         </li>
                         <li class = "nav-item">
                                 <a href = "/logout" class = "nav-link">Cerrar Sesión</a>
@@ -69,9 +65,6 @@
                         <li class = "nav-item">
                             {% else %}
                                 <a href = "/login" id = "ini" class = "nav-link">Iniciar Sesión</a>
-                        </li>
-                        <li class = "nav-item">
-                                <a href = "" id = "btnReg" class = "nav-link">Regístrate</a>
                             {% endif %}
                         </li>
                     </ul>
@@ -81,20 +74,22 @@
 
         {% block body %}{% endblock %}
 
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-7 col-sm-9">
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <div class="contact-info">
                         <h5>Contacto</h5>
-                        <p>Dirección: Avenida de Arjona, 5, 23005, Jaén</p>
-                        <p>Teléfono: 953 36 69 05</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Dirección: Avenida de Arjona, 5, 23005, Jaén</p>
+                        <p><i class="fas fa-phone-alt"></i> Teléfono: 953 36 69 05</p>
                     </div>
-                    <div class="col-xl-5 col-sm-3">
+                </div>
+                <div class="footer-section">
+                    <div class="social-media">
                         <h5>Síguenos en Redes Sociales</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="https://www.facebook.com/p/IES-Las-Fuentezuelas-100075457946240/">Facebook</a></li>
-                            <li><a href="https://x.com/lasfuentezuelas?lang=es">X</a></li>
-                            <li><a href="https://www.instagram.com/ieslasfuentezuelas/">Instagram</a></li>
+                        <ul class="list-unstyled social-icons">
+                            <li><a class="social-link" href="https://www.facebook.com/p/IES-Las-Fuentezuelas-100075457946240/"><i class="fab fa-facebook"></i> Facebook</a></li>
+                            <li><a class="social-link" href="https://x.com/lasfuentezuelas?lang=es"><i class="fab fa-twitter"></i> Twitter</a></li>
+                            <li><a class="social-link" href="https://www.instagram.com/ieslasfuentezuelas/"><i class="fab fa-instagram"></i> Instagram</a></li>
                         </ul>
                     </div>
                 </div>
