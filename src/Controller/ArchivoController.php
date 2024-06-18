@@ -110,6 +110,20 @@
                 $pdfFileEncuesta = $file->getFilename();
             }
 
+            if($convenio == null)
+            {
+                return $this->render('archivo/alumno.html.twig', [
+                    'pdf' => $pdfFile,
+                    'pdfEncuesta' => $pdfFileEncuesta,
+                    'convenio' => null,
+                    'alumno' => $alumno,
+                    'centroTrabajo' => null,
+                    'empresa' => null,
+                    'profesor' => null
+    
+                ]);
+            }
+
             //Obtiene el centro de trabajo
             $centroTrabajo = $convenio->getCentroTrab();
 
@@ -123,6 +137,7 @@
                 'alumno' => $alumno,
                 'centroTrabajo' => $centroTrabajo,
                 'empresa' => $empresa,
+                'profesor' => $convenio->getUsers()
 
             ]);
         }
@@ -172,14 +187,19 @@
             //Mover el archivo
             $archivo = $request->files->get('file');
 
+            $alumno = $this->getUser();
+
             //Si archivo no está vacío
             if ($archivo) 
             {
+                //Genera el nombre para el archivo
+                $nuevoNombre = 'Encuesta' . $alumno->getNombre() . $alumno->getApellido1() . '.pdf';
+
                 //Genera la ruta del archivo
-                $nuevoArchivo = $to_path . "/" . $archivo->getClientOriginalName();
+                $nuevoArchivo = $to_path . "/" . $nuevoNombre;
 
                 //Si se ha movido
-                if ($archivo->move($to_path, $archivo->getClientOriginalName())) 
+                if ($archivo->move($to_path, $nuevoNombre)) 
                 {
                     //Devuelve un true
                     return new JsonResponse(["success" => true]);

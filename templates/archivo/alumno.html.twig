@@ -58,16 +58,21 @@
                             </tr>
                             <tr>
                                 <th>Encuesta</th>
+                            {% if convenio is not null %}
                                 {% if pdfEncuesta is not null %}
                                     <td><a href="{{ asset('pdf/empresas/' ~ pdfEncuesta) }}" target="_blank">{{ pdfEncuesta }}</a></td>
                                 {% else %}
                                     <td>
-                                        <div class="custom-file-input mt-2">
-                                            <input type="file" class="form-control-file" name="file" id="subir" accept="application/pdf">
-                                            <span class="btn-subir">Seleccionar</span>
-                                        </div>
+                                        <input type="file" name="file" id="subir" accept="application/pdf">
+                                        <button id="guardar">Guardar</button>
                                     </td>                   
                                 {% endif %}
+                            {% else %}
+                                <td>No puedes subir encuesta de satisfacción si no estás asignado a una empresa.</td>
+
+                            {% endif %}
+                        
+                            
                             </tr>
                         </tbody>
                     </table>
@@ -81,6 +86,7 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tbody>
+                         {% if convenio is not null %}
                             <tr>
                                 <th>Nombre</th>
                                 <td>{{ empresa.nombre }}</td>
@@ -113,6 +119,16 @@
                                 <th>Persona de Contacto</th>
                                 <td>{{ empresa.personaCont.nombre }} {{ empresa.personaCont.apellido1 }} {{ empresa.personaCont.apellido2 }}</td>
                             </tr>
+                            <tr>
+                                <th>Profesor Responsable</th>
+                                <td>{{ profesor.nombre }} {{ profesor.apellido1 }} {{ profesor.apellido2 }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th>Empresa</th>
+                                <td>Aún no se le ha asignado ninguna empresa.</td>
+                            </tr>
+                        {% endif %}
                         </tbody>
                     </table>
                 </div>

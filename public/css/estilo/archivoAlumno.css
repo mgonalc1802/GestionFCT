@@ -22,7 +22,19 @@
 .table th {
     background-color: #f8f9fa;
 }
-
+#guardar{
+    border-radius: 10px;
+    padding: 2%;
+    color: #fff;
+    background-color: #1e4f7f;
+    border: none;
+    cursor: pointer;
+    margin-top: 3%;
+}
+#guardar:hover
+{
+    background-color: #2b6185;
+}
 
 @media (max-width: 768px) {
     .table-container {

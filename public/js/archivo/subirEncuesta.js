@@ -30,7 +30,7 @@ function subirEncuesta(){
             {
                 console.log(response);
                 alert("Archivo subido correctamente.");
-                window.location.href = "/datosGenerales";
+                window.location.href = "/datos";
             }
         });
     } 

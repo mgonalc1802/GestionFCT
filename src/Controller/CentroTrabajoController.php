@@ -95,15 +95,29 @@ class CentroTrabajoController extends AbstractController
 
         //Crea el objeto CentroTrabajo
         $nuevoCentro = new CentroTrabajo();
-
-        //Le añade sus propiedades
-        $nuevoCentro
+        
+        if(empty($fax))
+        {
+            //Le añade sus propiedades
+            $nuevoCentro
             ->setEmail($email)
             ->setTelefono($telefono)
             ->setDireccion($direccion)
-            ->setFax($fax)
             ->setLocalid($localidad);
+        }
+        else
+        {
+            //Le añade sus propiedades
+            $nuevoCentro
+                ->setEmail($email)
+                ->setTelefono($telefono)
+                ->setDireccion($direccion)
+                ->setFax($fax)
+                ->setLocalid($localidad);
+        }
 
+
+        
         //Llama a la bdd
         $manager->persist($nuevoCentro);
 

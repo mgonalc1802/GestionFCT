@@ -120,9 +120,9 @@ class Convenio
     /**
      * @return Collection<int, User>
      */
-    public function getUsers(): Collection
+    public function getUsers(): User
     {
-        return $this->users;
+        return $this->users->first();
     }
 
     public function addUser(User $user): static
